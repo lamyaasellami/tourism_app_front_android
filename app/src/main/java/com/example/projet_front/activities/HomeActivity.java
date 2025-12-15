@@ -1,7 +1,12 @@
 package com.example.projet_front.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.projet_front.R;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
@@ -18,6 +23,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // 🗺️ MAP
         mapView = findViewById(R.id.mapView);
 
         Bundle mapViewBundle = null;
@@ -27,8 +33,48 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+
+        // 👇 BOTTOM NAV (AJOUTÉ)
+        setupBottomNav();
     }
 
+    // =======================
+    // 🧭 BOTTOM NAVIGATION
+    // =======================
+    private void setupBottomNav() {
+
+        setNavItem(
+                findViewById(R.id.nav_accueil),
+                R.drawable.ic_accueil,
+                "Accueil",
+                true
+        );
+
+        setNavItem(findViewById(R.id.nav_hotels), R.drawable.ic_hotel, "Hôtels", false);
+        setNavItem(findViewById(R.id.nav_transport), R.drawable.ic_transport, "Transport", false);
+        setNavItem(findViewById(R.id.nav_favoris), R.drawable.ic_favorite, "Favoris", false);
+        setNavItem(findViewById(R.id.nav_profil), R.drawable.ic_profile, "Profil", false);
+    }
+
+    private void setNavItem(View item, int icon, String text, boolean active) {
+
+        ImageView iconView = item.findViewById(R.id.nav_icon);
+        TextView textView = item.findViewById(R.id.nav_text);
+
+        iconView.setImageResource(icon);
+
+        int color = getResources().getColor(
+                active ? R.color.nav_active : R.color.nav_inactive
+        );
+
+        iconView.setColorFilter(color);
+        textView.setText(text);
+        textView.setTextColor(color);
+    }
+
+    // =======================
+    // 🗺️ MAP CALLBACK
+    // =======================
     @Override
     public void onMapReady(GoogleMap map) {
         googleMap = map;
@@ -40,7 +86,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
-    // 🔄 Lifecycle (OBLIGATOIRE)
+    // =======================
+    // 🔄 MAP LIFECYCLE
+    // =======================
     @Override
     protected void onResume() {
         super.onResume();

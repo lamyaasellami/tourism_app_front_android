@@ -1,188 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F9F7F3">
+    android:background="@color/fond_clair">
 
-    <!-- HEADER -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="#0B5E4B">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Découvrir"
-            android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Marrakech, Maroc"
-            android:textColor="#E8D8C3"
-            android:textSize="14sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            android:hint="Rechercher destinations, hôtels..."
-            android:padding="12dp"
-            android:background="@drawable/bg_input"
-            android:backgroundTint="@null"/>
-
-    </LinearLayout>
-
-    <!-- CONTENT -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- MAP -->
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
+            <!-- HEADER -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_card"
-                android:elevation="8dp"/>
+                android:layout_height="wrap_content"
+                android:paddingBottom="40dp"
+                android:background="@color/vert_fonce">
 
+                <LinearLayout
+                    android:id="@+id/header_text_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Découvrir"
+                        android:textColor="@color/blanc"
+                        android:textSize="26sp"
+                        android:textStyle="bold"/>
 
-            <!-- CATEGORIES -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Marrakech, Maroc"
+                        android:textColor="@color/beige_clair"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <!-- MENU icone -->
+                <!-- SEARCH BAR -->
+                <EditText
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@id/header_text_container"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="Rechercher destinations, hôtels..."
+                    android:background="@drawable/bg_input"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:drawableEnd="@drawable/ic_filtre"
+                    android:drawablePadding="8dp"
+                    android:textColorHint="@color/gris_texte"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"/>
+
+            </RelativeLayout>
+
+            <!-- CONTENU -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="🏛\nMonuments"
-                    android:gravity="center"
-                    android:background="@drawable/bg_card"
-                    android:padding="12dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="🏨\nHôtels"
-                    android:gravity="center"
-                    android:background="@drawable/bg_card"
-                    android:padding="12dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="🍴\nRestaurants"
-                    android:gravity="center"
-                    android:background="@drawable/bg_card"
-                    android:padding="12dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="🚆\nTransport"
-                    android:gravity="center"
-                    android:background="@drawable/bg_card"
-                    android:padding="12dp"/>
-            </LinearLayout>
-
-            <!-- POPULAR -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Populaire près de vous"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="24dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:padding="14dp"
                 android:orientation="vertical"
-                android:background="@drawable/bg_card">
+                android:layout_marginTop="-24dp"
+                android:padding="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mosquée Koutoubia"
-                    android:textStyle="bold"/>
+                <!-- MAP CARD -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <com.google.android.gms.maps.MapView
+                        android:id="@+id/mapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- CATEGORIES (à créer plus tard) -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="⭐ 4.8 • Monument historique"
-                    android:textColor="#AAAAAA"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <include layout="@layout/category_item" android:id="@+id/cat_monuments" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_hotels" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_restaurants" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_transport" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
+
+                    <!-- Texte principal à gauche -->
+                    <TextView
+                        android:id="@+id/tv_populaire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Populaire près de vous"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/noir"
+                        android:layout_alignParentStart="true"/>
+
+                    <!-- "Voir tout" à droite -->
+                    <TextView
+                        android:id="@+id/tv_voir_tout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Voir tout"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/vert_fonce"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_vertical"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp">
+
+                    <include layout="@layout/popular_item" android:id="@+id/item_koutoubia"/>
+                    <include layout="@layout/popular_item" android:id="@+id/item_majorelle"/>
+                </LinearLayout>
+
+
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
     <!-- BOTTOM NAV -->
     <LinearLayout
+        android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="#FFFFFF"
-        android:weightSum="5"
-        android:layout_margin="24px">
+        android:background="@color/blanc"
+        android:elevation="8dp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="🏠\nAccueil"
-            android:gravity="center"/>
+        <include
+            android:id="@+id/nav_accueil"
+            layout="@layout/nav_item"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="🏨\nHôtels"
-            android:gravity="center"/>
+        <include
+            android:id="@+id/nav_hotels"
+            layout="@layout/nav_item"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="🚆\nTransport"
-            android:gravity="center"/>
+        <include
+            android:id="@+id/nav_transport"
+            layout="@layout/nav_item"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="❤️\nSaved"
-            android:gravity="center"/>
+        <include
+            android:id="@+id/nav_favoris"
+            layout="@layout/nav_item"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="👤\nProfil"
-            android:gravity="center"/>
+        <include
+            android:id="@+id/nav_profil"
+            layout="@layout/nav_item"/>
     </LinearLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>
