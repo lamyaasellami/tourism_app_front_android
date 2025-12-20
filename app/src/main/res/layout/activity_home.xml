@@ -134,16 +134,11 @@
                         android:gravity="center_vertical"/>
                 </RelativeLayout>
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_popular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp">
-
-                    <include layout="@layout/popular_item" android:id="@+id/item_koutoubia"/>
-                    <include layout="@layout/popular_item" android:id="@+id/item_majorelle"/>
-                </LinearLayout>
-
+                    android:nestedScrollingEnabled="false"/>
 
             </LinearLayout>
         </LinearLayout>
