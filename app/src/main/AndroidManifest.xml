@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -14,7 +16,7 @@
         android:theme="@style/Theme.DiscoverMaroc">
 
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".activities.HomeActivity"
             android:exported="true">
 
             <intent-filter>
@@ -24,14 +26,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.LoginActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC998jr_S6APqeoJBohbC1-rGgi0DGgmOg"/>
 
     </application>
-
-<!--    <meta-data-->
-<!--        android:name="com.google.android.geo.API_KEY"-->
-<!--        android:value="AIzaSyC998jr_S6APqeoJBohbC1-rGgi0DGgmOg"/>-->
-
-
 
 </manifest>

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="vert_fonce">#0B5E4B</color>
+    <color name="beige_clair">#E8D8C3</color>
+    <color name="fond_clair">#F9F7F3</color>
+    <color name="gris_texte">#AAAAAA</color>
+    <color name="gris_texte_fonce">#757575</color>
+    <color name="blanc">#FFFFFF</color>
+    <color name="noir">#1C1C1C</color>
+
+    <color name="categorie_bg">#C59F5A</color>
+    <color name="categorie_icon">#FFFFFF</color>
+
+    <color name="nav_active">#0B5E4B</color>
+    <color name="nav_inactive">#AAAAAA</color>
 </resources>
