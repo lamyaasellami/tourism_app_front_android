@@ -28,7 +28,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="330dp"
                     android:background="#10614f"
                     android:orientation="vertical"
                     android:padding="1dp">
@@ -137,32 +137,28 @@
             <!-- White board Section -->
 
 
-            <LinearLayout
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="-30dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="#10614f"
-                    android:orientation="vertical"></LinearLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-30dp"
-                    app:cardBackgroundColor="@android:color/white"
-                    app:cardCornerRadius="30dp"
-                    app:cardElevation="8dp">
-
+                    android:orientation="vertical"
+                    android:paddingBottom="0dp">
                     <!-- Stats Section -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="12dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
                         android:orientation="horizontal">
 
                         <!-- Card 1: Mémos -->
@@ -181,59 +177,60 @@
                             layout="@layout/statistic_card" />
 
                     </LinearLayout>
-
-
-                    <!-- Add your menu items here as needed -->
-                    <!-- Example for Mes Mémos -->
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- Menu Items Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- Card 1: Mes Contenus -->
-                    <include
-                        android:id="@+id/card_mes_contenus"
-                        layout="@layout/item_profile_card" />
-
-                    <!-- Card 2: Paramètres -->
-                    <include
-                        android:id="@+id/card_parametres"
-                        layout="@layout/item_profile_card" />
-
-                    <!-- Card 3: Support -->
-                    <include
-                        android:id="@+id/card_support"
-                        layout="@layout/item_profile_card" />
-
                 </LinearLayout>
 
-                <!-- Logout Button -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="55dp"
-                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/btn_logout"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:layout_margin="16dp"
-                        android:backgroundTint="#D32F2F"
-                        android:text="Se déconnecter"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"
-                        app:cornerRadius="12dp"
-                        app:icon="@drawable/bg_button"
-                        app:iconGravity="textStart" />
+                <!-- Add your menu items here as needed -->
+                <!-- Example for Mes Mémos -->
 
-                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Menu Items Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Card 1: Mes Contenus -->
+                <include
+                    android:id="@+id/card_mes_contenus"
+                    layout="@layout/item_profile_card" />
+
+                <!-- Card 2: Paramètres -->
+                <include
+                    android:id="@+id/card_parametres"
+                    layout="@layout/item_profile_card" />
+
+                <!-- Card 3: Support -->
+                <include
+                    android:id="@+id/card_support"
+                    layout="@layout/item_profile_card" />
 
             </LinearLayout>
+
+            <!-- Logout Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="55dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_margin="16dp"
+                    android:backgroundTint="#D32F2F"
+                    android:text="Se déconnecter"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/bg_button"
+                    app:iconGravity="textStart" />
+
+            </LinearLayout>
+
+
 
 
         </LinearLayout>
