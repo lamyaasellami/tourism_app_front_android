@@ -46,27 +46,52 @@
 
                 </LinearLayout>
 
-                <!-- MENU icone -->
-                <!-- SEARCH BAR -->
-                <EditText
-                    android:id="@+id/search_bar"
+                <!-- FILTRES -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/header_text_container"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="16dp"
-                    android:hint="Rechercher destinations, hôtels..."
-                    android:background="@drawable/bg_input"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:drawableEnd="@drawable/ic_filtre"
-                    android:drawablePadding="8dp"
-                    android:textColorHint="@color/gris_texte"
-                    android:inputType="text"
-                    android:imeOptions="actionSearch"/>
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="3">
+
+                    <!-- TYPE -->
+                    <Spinner
+                        android:id="@+id/spinner_type"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_filter_gold"
+                        android:padding="8dp"/>
+
+                    <!-- PRIX -->
+                    <Spinner
+                        android:id="@+id/spinner_price"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_filter_gold"
+                        android:padding="8dp"/>
+
+                    <!-- HORAIRES -->
+                    <Spinner
+                        android:id="@+id/spinner_time"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_filter_gold"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+
 
             </RelativeLayout>
+
+
 
             <!-- CONTENU -->
             <LinearLayout

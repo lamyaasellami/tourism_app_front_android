@@ -22,18 +22,23 @@ public interface ApiService {
     @POST("api/users/login")
     Call<UserResponse> login(@Body UserLoginRequest request);
 
-
     // ================= PLACES =================
 
-    // 🔹 Tous les lieux
+    // Tous les lieux
     @GET("api/places")
     Call<List<PlaceResponse>> getAllPlaces();
 
-    // 🔹 Par catégorie
+    // Par type (POPULAIRES, Monument, etc.)
     @GET("api/places/type/{type}")
     Call<List<PlaceResponse>> getPlacesByType(@Path("type") String type);
 
-    // 🔹 Recherche avec filtres
-    @GET("api/places/search")
-    Call<List<PlaceResponse>> searchPlaces(@Query("q") String keyword);
+    // 🔹 Filtre complet (une seule méthode !)
+    @GET("api/places/filter")
+    Call<List<PlaceResponse>> filterPlaces(
+            @Query("q") String q,
+            @Query("type") String type,
+            @Query("minPrice") Double minPrice,
+            @Query("maxPrice") Double maxPrice,
+            @Query("opening") String opening
+    );
 }
