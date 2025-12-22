@@ -10,5 +10,8 @@
         <item name="colorPrimary">#0B5E4B</item>
         <item name="colorSecondary">#C49A3A</item>
     </style>
+    <style name="CircleImage">
+        <item name="cornerSize">50%</item>
+    </style>
 
 </resources>
