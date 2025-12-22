@@ -154,132 +154,29 @@
                     app:cardCornerRadius="30dp"
                     app:cardElevation="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingTop="20dp">
-
-                    </LinearLayout>
                     <!-- Stats Section -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginHorizontal="12dp"
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="24dp"
                         android:orientation="horizontal">
 
-                        <!-- card1: Memories Card -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="120dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_weight="1"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
+                        <!-- Card 1: Mémos -->
+                        <include
+                            android:id="@+id/stat_card_memos"
+                            layout="@layout/statistic_card" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/bg_card"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                        <!-- Card 2: Réservations -->
+                        <include
+                            android:id="@+id/stat_card_reservations"
+                            layout="@layout/statistic_card" />
 
-                                <TextView
-                                    android:id="@+id/tvMemoriesCount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="24"
-                                    android:textColor="@android:color/black"
-                                    android:textSize="32sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="Mémos"
-                                    android:textColor="#666666"
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- card2: Reservations Card -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="120dp"
-                            android:layout_marginHorizontal="8dp"
-                            android:layout_weight="1"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/bg_card"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tvReservationsCount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="8"
-                                    android:textColor="@android:color/black"
-                                    android:textSize="32sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="Réservations"
-                                    android:textColor="#666666"
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- card3: Points Card -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="120dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/bg_card"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tvPointsCount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="156"
-                                    android:textColor="@android:color/black"
-                                    android:textSize="32sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="Points"
-                                    android:textColor="#666666"
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
+                        <!-- Card 3: Points -->
+                        <include
+                            android:id="@+id/stat_card_points"
+                            layout="@layout/statistic_card" />
 
                     </LinearLayout>
 

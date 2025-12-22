@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.projet_front.R;
 import com.example.projet_front.models.UserRegisterRequest;
@@ -17,7 +18,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     // UI Components
     private TextView tvUserName, tvUserEmail;
-    private TextView tvMemoriesCount, tvReservationsCount, tvPointsCount;
+    // Statistics cards
+    private View statCardMemos, statCardReservations, statCardPoints;
     private Button btnModifyProfile, btnLogout;
 
     // Card views
@@ -37,8 +39,11 @@ public class ProfileActivity extends AppCompatActivity {
         // Load user data (in a real app, this would come from SharedPreferences or API)
         loadUserData();
 
+        // Setup statistics cards
+        setupStatisticsCards();
+
         // Setup cards with content
-        setupCards();
+        setupMenuCards();
 
         // Set up click listeners
         setupListeners();
@@ -47,13 +52,16 @@ public class ProfileActivity extends AppCompatActivity {
     private void initViews() {
         tvUserName = findViewById(R.id.tvUserName);
         tvUserEmail = findViewById(R.id.tvUserEmail);
-        tvMemoriesCount = findViewById(R.id.tvMemoriesCount);
-        tvReservationsCount = findViewById(R.id.tvReservationsCount);
-        tvPointsCount = findViewById(R.id.tvPointsCount);
         btnModifyProfile = findViewById(R.id.btnModifyProfile);
         btnLogout = findViewById(R.id.btn_logout);
 
-        // Find card views
+        // Find statistics card views
+        statCardMemos = findViewById(R.id.stat_card_memos);
+        statCardReservations = findViewById(R.id.stat_card_reservations);
+        statCardPoints = findViewById(R.id.stat_card_points);
+
+
+        // Find menu card views
         cardMesContenus = findViewById(R.id.card_mes_contenus);
         cardParametres = findViewById(R.id.card_parametres);
         cardSupport = findViewById(R.id.card_support);
@@ -69,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         updateUI();
 
         // Load stats (these would typically come from an API)
-        loadUserStats();
+        //loadUserStats();
     }
 
     private void updateUI() {
@@ -79,31 +87,72 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void loadUserStats() {
-        // In a real app, these would come from API calls
-        tvMemoriesCount.setText("24");
-        tvReservationsCount.setText("8");
-        tvPointsCount.setText("156");
+    private void setupStatisticsCards() {
+        // Setup Mémos card
+        setupStatCard(statCardMemos,
+                R.drawable.ic_event_note,
+                "Mémos",
+                24,
+                "#E8F5E9");  // Light green background
+
+        // Setup Réservations card
+        setupStatCard(statCardReservations,
+                R.drawable.ic_reservation,
+                "Réservations",
+                8,
+                "#FFF3E0");  // Light orange background
+
+        // Setup Points card
+        setupStatCard(statCardPoints,
+                R.drawable.ic_star,
+                "Points",
+                156,
+                "#FFF9C4");  // Light yellow background
     }
 
-    private void setupCards() {
+    private void setupStatCard(View card, int iconRes, String title, int count, String backgroundColor) {
+        CardView cvIconBackground = card.findViewById(R.id.cvIconBackground);
+        ImageView ivStatIcon = card.findViewById(R.id.ivStatIcon);
+        TextView tvStatTitle = card.findViewById(R.id.tvStatTitle);
+        TextView tvStatCount = card.findViewById(R.id.tvStatCount);
+
+        // Set icon
+        ivStatIcon.setImageResource(iconRes);
+
+        // Set title
+        tvStatTitle.setText(title);
+
+        // Set count
+        tvStatCount.setText(String.valueOf(count));
+
+        // Set background color for icon circle
+        cvIconBackground.setCardBackgroundColor(android.graphics.Color.parseColor(backgroundColor));
+
+        // Optional: Add click listener for statistics cards
+        card.setOnClickListener(v -> {
+            Toast.makeText(this, "Voir tous les " + title, Toast.LENGTH_SHORT).show();
+            // Navigate to respective activity
+        });
+    }
+
+    private void setupMenuCards() {
         // Setup Card 1: Mes Contenus
-        setupCard(cardMesContenus, "Mes Contenus",
+        updateStatistics(cardMesContenus, "Mes Contenus",
                 R.drawable.ic_event_note, "Mes Mémos",
                 R.drawable.ic_reservation, "Mes Réservations");
 
         // Setup Card 2: Paramètres
-        setupCard(cardParametres, "Paramètres",
+        updateStatistics(cardParametres, "Paramètres",
                 R.drawable.ic_user, "Informations personnelles",
                 R.drawable.ic_notif, "Notifications");
 
         // Setup Card 3: Support
-        setupCard(cardSupport, "Support",
+        updateStatistics(cardSupport, "Support",
                 R.drawable.ic_help, "Centre d'aide",
                 R.drawable.ic_help, "Contacter le support");
     }
 
-    private void setupCard(View card, String title,
+    private void updateStatistics(View card, String title,
                            int icon1, String label1,
                            int icon2, String label2) {
         TextView tvTitle = card.findViewById(R.id.tv_section_title);
@@ -182,10 +231,15 @@ public class ProfileActivity extends AppCompatActivity {
         updateUI();
     }
 
-    // Method to update stats
-    public void updateStats(int memories, int reservations, int points) {
-        tvMemoriesCount.setText(String.valueOf(memories));
-        tvReservationsCount.setText(String.valueOf(reservations));
-        tvPointsCount.setText(String.valueOf(points));
+
+    // Method to update statistics dynamically
+    public void updateStatistics(int memosCount, int reservationsCount, int pointsCount) {
+        TextView tvMemos = statCardMemos.findViewById(R.id.tvStatCount);
+        TextView tvReservations = statCardReservations.findViewById(R.id.tvStatCount);
+        TextView tvPoints = statCardPoints.findViewById(R.id.tvStatCount);
+
+        tvMemos.setText(String.valueOf(memosCount));
+        tvReservations.setText(String.valueOf(reservationsCount));
+        tvPoints.setText(String.valueOf(pointsCount));
     }
 }
