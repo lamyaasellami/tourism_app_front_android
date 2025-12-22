@@ -1,27 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#F9F7F3"
-    android:padding="24dp">
+    android:background="@color/fond_clair">
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenue"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#0B5E4B" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation_bar">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Connexion réussie ✅"
-        android:textSize="16sp"
-        android:textColor="#1C1C1C"
-        android:layout_marginTop="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <!-- HEADER -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="40dp"
+                android:background="@color/vert_fonce">
+
+                <LinearLayout
+                    android:id="@+id/header_text_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Découvrir"
+                        android:textColor="@color/blanc"
+                        android:textSize="26sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Marrakech, Maroc"
+                        android:textColor="@color/beige_clair"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <!-- MENU icone -->
+                <!-- SEARCH BAR -->
+                <EditText
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@id/header_text_container"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="Rechercher destinations, hôtels..."
+                    android:background="@drawable/bg_input"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:drawableEnd="@drawable/ic_filtre"
+                    android:drawablePadding="8dp"
+                    android:textColorHint="@color/gris_texte"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"/>
+
+            </RelativeLayout>
+
+            <!-- CONTENU -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="-24dp"
+                android:padding="20dp">
+
+                <!-- MAP CARD -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
+
+                    <com.google.android.gms.maps.MapView
+                        android:id="@+id/mapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- CATEGORIES (à créer plus tard) -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <include layout="@layout/category_item" android:id="@+id/cat_monuments" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_hotels" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_restaurants" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_transport" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
+
+                    <!-- Texte principal à gauche -->
+                    <TextView
+                        android:id="@+id/tv_populaire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Populaire près de vous"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/noir"
+                        android:layout_alignParentStart="true"/>
+
+                    <!-- "Voir tout" à droite -->
+                    <TextView
+                        android:id="@+id/tv_voir_tout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Voir tout"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/vert_fonce"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_vertical"/>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM NAV -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/blanc"
+        android:elevation="8dp">
+
+        <include
+            android:id="@+id/nav_accueil"
+            layout="@layout/nav_item"/>
+
+        <include
+            android:id="@+id/nav_hotels"
+            layout="@layout/nav_item"/>
+
+        <include
+            android:id="@+id/nav_transport"
+            layout="@layout/nav_item"/>
+
+        <include
+            android:id="@+id/nav_favoris"
+            layout="@layout/nav_item"/>
+
+        <include
+            android:id="@+id/nav_profil"
+            layout="@layout/nav_item"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

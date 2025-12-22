@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.projet_front.R;
 import com.example.projet_front.models.UserRegisterRequest;
+import com.example.projet_front.utils.BottomNavBar;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -32,6 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        // Setup bottom navigation bar
+        BottomNavBar.setupBottomNav(this);
 
         // Initialize UI components
         initViews();
