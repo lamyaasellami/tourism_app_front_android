@@ -23,6 +23,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.content.Intent;
+import com.example.projet_front.interfaces.OnPlaceClickListener;
+
 
 public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -68,7 +71,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             List<PlaceResponse> placeList = response.body();
 
                             PopularPlaceAdapter adapter =
-                                    new PopularPlaceAdapter(placeList);
+                                    new PopularPlaceAdapter(placeList, place -> {
+
+                                        Intent intent = new Intent(
+                                                HomeActivity.this,
+                                                PlaceDetailActivity.class
+                                        );
+
+                                        intent.putExtra("place_id", place.getPlaceId());
+                                        startActivity(intent);
+                                    });
+
 
                             recyclerView.setAdapter(adapter);
                         }

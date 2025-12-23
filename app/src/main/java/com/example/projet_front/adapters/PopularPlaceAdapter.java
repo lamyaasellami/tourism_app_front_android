@@ -1,5 +1,8 @@
 package com.example.projet_front.adapters;
+import com.example.projet_front.interfaces.OnPlaceClickListener;
+import com.example.projet_front.activities.PlaceDetailActivity;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +20,15 @@ public class PopularPlaceAdapter
         extends RecyclerView.Adapter<PopularPlaceAdapter.ViewHolder> {
 
     private List<PlaceResponse> places;
+    private OnPlaceClickListener listener;
 
-    public PopularPlaceAdapter(List<PlaceResponse> places) {
+
+    public PopularPlaceAdapter(List<PlaceResponse> places,
+                               OnPlaceClickListener listener) {
         this.places = places;
+        this.listener = listener;
     }
+
 
     @NonNull
     @Override
@@ -40,6 +48,13 @@ public class PopularPlaceAdapter
 
         // Image (plus tard avec Glide/Picasso)
         holder.image.setImageResource(R.drawable.koutoubia_placeholder);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), PlaceDetailActivity.class);
+            intent.putExtra("place_id", place.getPlaceId());
+            v.getContext().startActivity(intent);
+        });
+
+
     }
 
     @Override

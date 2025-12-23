@@ -36,4 +36,8 @@ public interface ApiService {
     // 🔹 Recherche avec filtres
     @GET("api/places/search")
     Call<List<PlaceResponse>> searchPlaces(@Query("q") String keyword);
+
+    @GET("api/places/{id}")
+    Call<PlaceResponse> getPlaceById(@Path("id") Integer id);
+
 }

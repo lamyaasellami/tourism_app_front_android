@@ -16,7 +16,7 @@
         android:theme="@style/Theme.DiscoverMaroc">
 
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
 
             <intent-filter>
@@ -26,7 +26,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.PlaceDetailActivity"
+            android:exported="false" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
