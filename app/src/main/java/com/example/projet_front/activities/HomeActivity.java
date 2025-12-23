@@ -2,7 +2,9 @@ package com.example.projet_front.activities;
 
 import com.example.projet_front.api.ApiClient;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.example.projet_front.adapters.PopularPlaceAdapter;
 import com.example.projet_front.api.ApiService;
 import com.example.projet_front.models.PlaceResponse;
 
+import com.example.projet_front.utils.BottomNavBar;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
@@ -49,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.getMapAsync(this);
 
         // 🧭 BOTTOM NAV
-        setupBottomNav();
+        BottomNavBar.setupBottomNav(this);
 
         // 📋 RECYCLER VIEW
         recyclerView = findViewById(R.id.recycler_popular);
@@ -84,7 +87,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     // =======================
     // 🧭 BOTTOM NAV
     // =======================
-    private void setupBottomNav() {
+    /*private void setupBottomNav() {
+        View navProfil = findViewById(R.id.nav_profil);
 
         setNavItem(findViewById(R.id.nav_accueil),
                 R.drawable.ic_accueil, "Accueil", true);
@@ -100,6 +104,14 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         setNavItem(findViewById(R.id.nav_profil),
                 R.drawable.ic_profile, "Profil", false);
+
+        // Add the Click Listener for Profile
+        navProfil.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            // This flag ensures that if the activity is already running, it just brings it to front
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        });
     }
 
     private void setNavItem(android.view.View item, int icon, String text, boolean active) {
@@ -117,7 +129,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         textView.setText(text);
         textView.setTextColor(color);
     }
-
+*/
     // =======================
     // 🗺️ MAP
     // =======================
