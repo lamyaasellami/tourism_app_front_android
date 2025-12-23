@@ -227,6 +227,18 @@ public class ProfileActivity extends AppCompatActivity {
             // Implement logout logic here
             // Clear SharedPreferences, navigate to LoginActivity, etc.
         });
+
+        // 1. Find the back button by its ID
+        ImageView btnBack = findViewById(R.id.btnBack);
+
+        // 2. Set the click listener
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 3. Close this activity to go back
+                finish();
+            }
+        });
     }
 
     // Method to update user data from another activity/fragment
