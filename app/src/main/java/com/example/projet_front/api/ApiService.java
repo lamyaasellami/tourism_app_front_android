@@ -1,5 +1,6 @@
 package com.example.projet_front.api;
 
+import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.models.UserLoginRequest;
 import com.example.projet_front.models.UserRegisterRequest;
 import com.example.projet_front.models.UserResponse;
@@ -40,5 +41,17 @@ public interface ApiService {
             @Query("minPrice") Double minPrice,
             @Query("maxPrice") Double maxPrice,
             @Query("opening") String opening
+    );
+
+
+    // ================= ACCOMMODATIONS =================
+    // 🔹 GET ALL accommodations
+    @GET("accommodations")
+    Call<List<AccommodationProvider>> getAllAccommodations();
+
+    // 🔹 GET accommodations by type
+    @GET("accommodations")
+    Call<List<AccommodationProvider>> getAccommodationsByType(
+            @Query("type") String type
     );
 }
