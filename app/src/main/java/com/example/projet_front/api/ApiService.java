@@ -50,8 +50,8 @@ public interface ApiService {
     Call<List<AccommodationProvider>> getAllAccommodations();
 
     // 🔹 GET accommodations by type
-    @GET("accommodations")
+    @GET("accommodations/type/{type}")
     Call<List<AccommodationProvider>> getAccommodationsByType(
-            @Query("type") String type
+            @Path("type") String type
     );
 }

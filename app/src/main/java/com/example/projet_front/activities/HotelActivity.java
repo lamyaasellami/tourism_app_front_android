@@ -48,8 +48,7 @@ public class HotelActivity extends AppCompatActivity {
         setupListeners();
 
         setupRecyclerView();
-        //loadAccommodations();
-        //setupFilterChips();
+
         fetchAllAccommodations();
     }
 
@@ -81,52 +80,30 @@ public class HotelActivity extends AppCompatActivity {
     }
 
     private void filterHotels(String category, int position) {
-        // Implement your filtering logic here
-        // For example: update RecyclerView adapter with filtered data
+
         switch (position) {
             case 0: // All
-                // Show all hotels
+                fetchAllAccommodations();
                 break;
-            case 1: // 5 Star
-                // Show 5 star hotels
+
+            case 1: // Riads
+                fetchAccommodationsByType("riad");
                 break;
-            case 2: // 4 Star
-                // Show 4 star hotels
+
+            case 2: // Hotels
+                fetchAccommodationsByType("hotel");
                 break;
-            case 3: // Budget
-                // Show budget hotels
+
+            case 3: // Platforms
+                fetchAccommodationsByType("platform");
                 break;
+
             case 4: // Luxury
-                // Show luxury hotels
+                fetchAccommodationsByType("luxury");
                 break;
         }
-
-        // Show a loading spinner here
-        // progressBar.setVisibility(View.VISIBLE);
-
-        // This is where you will call your database/API
-        // Example logic:
-        /*if (category.equals("All")) {
-            fetchAllHotelsFromDB();
-        } else {
-            // Pass the category to your database query helper
-            fetchHotelsByRating(category);
-        }*/
     }
 
-    private void setupListeners() {
-        // 1. Find the back button by its ID
-        ImageView btnBack = findViewById(R.id.btnBack);
-
-        // 2. Set the click listener
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 3. Close this activity to go back
-                finish();
-            }
-        });
-    }
 
     //----------
     private void setupRecyclerView() {
@@ -134,30 +111,6 @@ public class HotelActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
     }
-
-    /*private void loadAccommodations() {
-        // Sample data based on your SQL
-        accommodations = new ArrayList<>();
-        accommodations.add(new AccommodationProvider(
-                1,
-                "Riad La Sultana",
-                "riad",
-                "Luxury riad near Jamaâ El Fna Square with Moorish décor, rooftop terrace, spa, and marble bathrooms.",
-                "https://www.lasultanahotels.com",
-                null
-        ));
-        accommodations.add(new AccommodationProvider(
-                2,
-                "Riad Yasmine",
-                "riad",
-                "Instagram-famous boutique riad with a stunning courtyard pool, Moroccan tiles, and personalized service.",
-                "https://www.riadyasmine.com",
-                null
-        ));
-
-        adapter = new AccommodationAdapter(this, accommodations);
-        recyclerView.setAdapter(adapter);
-    }*/
 
     private void fetchAllAccommodations() {
 
@@ -190,15 +143,60 @@ public class HotelActivity extends AppCompatActivity {
         });
     }
 
+    private void fetchAccommodationsByType(String type) {
 
-    /*private void setupFilterChips() {
-        FilterChips filterFragment = (FilterChips) getSupportFragmentManager()
-                .findFragmentById(R.id.filterChipsContainer);
+        ApiService api = ApiClient.getClient().create(ApiService.class);
 
-        if (filterFragment != null) {
-            filterFragment.setOnFilterSelectedListener((filterCategory, position) -> {
-                adapter.filter(filterCategory);
-            });
-        }
-    }*/
+        api.getAccommodationsByType(type).enqueue(new Callback<List<AccommodationProvider>>() {
+            @Override
+            public void onResponse(
+                    Call<List<AccommodationProvider>> call,
+                    Response<List<AccommodationProvider>> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+                    adapter = new AccommodationAdapter(
+                            HotelActivity.this,
+                            response.body()
+                    );
+                    recyclerView.setAdapter(adapter);
+                }
+                else {
+                    Toast.makeText(
+                            HotelActivity.this,
+                            "No accommodations found",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    recyclerView.setAdapter(
+                            new AccommodationAdapter(
+                                    HotelActivity.this,
+                                    new ArrayList<>()
+                            )
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AccommodationProvider>> call, Throwable t) {
+                Toast.makeText(
+                        HotelActivity.this,
+                        "Failed to load filtered accommodations",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+    }
+
+    private void setupListeners() {
+        // 1. Find the back button by its ID
+        ImageView btnBack = findViewById(R.id.btnBack);
+
+        // 2. Set the click listener
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 3. Close this activity to go back
+                finish();
+            }
+        });
+    }
 }
