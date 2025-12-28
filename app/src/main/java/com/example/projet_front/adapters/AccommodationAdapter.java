@@ -23,9 +23,9 @@ import java.util.List;
 
 public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdapter.ViewHolder> {
 
-    private List<AccommodationProvider> accommodations;
-    private List<AccommodationProvider> accommodationsFiltered;
-    private Context context;
+    private final List<AccommodationProvider> accommodations;
+    private final List<AccommodationProvider> accommodationsFiltered;
+    private final Context context;
 
     public AccommodationAdapter(Context context, List<AccommodationProvider> accommodations) {
         this.context = context;
@@ -57,14 +57,28 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         }
         holder.tvDescription.setText(description);
 
-        // Set image (you can use Glide or Picasso for loading images from URL)
+
         // Example with placeholder:
-        if (accommodation.getLogoUrl() != null && !accommodation.getLogoUrl().isEmpty()) {
-            // Glide.with(context).load(accommodation.getLogoUrl()).into(holder.imgAccommodation);
-            holder.imgAccommodation.setImageResource(R.drawable.koutoubia_placeholder); // For now
+        String imageName = accommodation.getLogoUrl();
+
+        if (imageName != null && !imageName.isEmpty()) {
+
+            int imageResId = context.getResources().getIdentifier(
+                    imageName,
+                    "drawable",
+                    context.getPackageName()
+            );
+
+            if (imageResId != 0) {
+                holder.imgAccommodation.setImageResource(imageResId);
+            } else {
+                holder.imgAccommodation.setImageResource(R.drawable.koutoubia_placeholder);
+            }
+
         } else {
             holder.imgAccommodation.setImageResource(R.drawable.koutoubia_placeholder);
         }
+
 
         // Handle favorite button
         holder.btnFavorite.setTag(accommodation.isFavorite() ? "filled" : "border");
