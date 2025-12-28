@@ -117,7 +117,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingBottom="36dp">
+
+                <!-- After the FilterChips fragment -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewTransportations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:paddingBottom="16dp" />
 
             </LinearLayout>
         </LinearLayout>

@@ -17,15 +17,15 @@
         android:theme="@style/Theme.DiscoverMaroc"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.OnboardingActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".activities.OnboardingActivity" />
 
-        <activity android:name=".activities.TransportActivity" />
+        <activity android:name=".activities.TransportActivity"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".activities.HotelActivity" />
         <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.ProfileActivity" />

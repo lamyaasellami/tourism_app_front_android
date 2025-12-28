@@ -1,6 +1,7 @@
 package com.example.projet_front.api;
 
 import com.example.projet_front.models.AccommodationProvider;
+import com.example.projet_front.models.TransportProvider;
 import com.example.projet_front.models.UserLoginRequest;
 import com.example.projet_front.models.UserRegisterRequest;
 import com.example.projet_front.models.UserResponse;
@@ -52,6 +53,17 @@ public interface ApiService {
     // 🔹 GET accommodations by type
     @GET("accommodations/type/{type}")
     Call<List<AccommodationProvider>> getAccommodationsByType(
+            @Path("type") String type
+    );
+
+    // ================= TRANSPORTATIONS =================
+    // 🔹 GET ALL transportations
+    @GET("transports")
+    Call<List<TransportProvider>> getAllTransportations();
+
+    // 🔹 GET transportations by type
+    @GET("transports/type/{type}")
+    Call<List<TransportProvider>> getTransportationsByType(
             @Path("type") String type
     );
 }
