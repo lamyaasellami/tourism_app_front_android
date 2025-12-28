@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        app:chipSpacingHorizontal="28dp"
+        android:paddingLeft="10dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAll"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:checked="true"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTrain"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Train"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTram"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tram"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipUber"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uber"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAirelines"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Airelines"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+    </com.google.android.material.chip.ChipGroup>
+</LinearLayout>
