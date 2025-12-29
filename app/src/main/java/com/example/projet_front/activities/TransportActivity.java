@@ -5,25 +5,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
-import com.example.projet_front.adapters.AccommodationAdapter;
 import com.example.projet_front.adapters.TransportAdapter;
 import com.example.projet_front.api.ApiClient;
 import com.example.projet_front.api.ApiService;
-import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.models.TransportProvider;
 import com.example.projet_front.utils.BottomNavBar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -81,35 +77,38 @@ public class TransportActivity extends AppCompatActivity {
                 Chip selectedChip = findViewById(chipId);
 
                 if (selectedChip != null) {
-                    String category = selectedChip.getText().toString();
 
                     // Get position/index of the chip in the group
                     int position = group.indexOfChild(selectedChip);
 
                     // 4. Trigger your filtering logic
-                    filterHotels(category, position);
+                    filterHotels(position);
                 }
             });
         }
     }
 
-    private void filterHotels(String category, int position) {
+    private void filterHotels(int position) {
 
         switch (position) {
             case 0: // All
                 fetchAllTransportations();
                 break;
 
-            case 1: // Riads
+            case 1: // Train
+                fetchTransportationsByType("train");
                 break;
 
-            case 2: // Hotels
+            case 2: // Tram
+                fetchTransportationsByType("tram");
                 break;
 
-            case 3: // Platforms
+            case 3: // Uber
+                fetchTransportationsByType("bus");
                 break;
 
-            case 4: // Luxury
+            case 4: // other
+                fetchTransportationsByType("other");
                 break;
         }
     }
@@ -126,10 +125,10 @@ public class TransportActivity extends AppCompatActivity {
 
         ApiService api = ApiClient.getClient().create(ApiService.class);
 
-        api.getAllTransportations().enqueue(new Callback<List<TransportProvider>>() {
+        api.getAllTransportations().enqueue(new Callback<>() {
 
             @Override
-            public void onResponse(Call<List<TransportProvider>> call, Response<List<TransportProvider>> response) {
+            public void onResponse(@NonNull Call<List<TransportProvider>> call, @NonNull Response<List<TransportProvider>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     adapter = new TransportAdapter(
                             TransportActivity.this,
@@ -140,12 +139,55 @@ public class TransportActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<TransportProvider>> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<List<TransportProvider>> call, @NonNull Throwable throwable) {
                 Toast.makeText(TransportActivity.this,
                         "Failed to load transportations",
                         Toast.LENGTH_LONG
                 ).show();
 
+            }
+        });
+    }
+
+
+    private void fetchTransportationsByType(String type) {
+
+        ApiService api = ApiClient.getClient().create(ApiService.class);
+
+        api.getTransportationsByType(type).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(
+                    @NonNull Call<List<TransportProvider>> call,
+                    @NonNull Response<List<TransportProvider>> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+                    adapter = new TransportAdapter(
+                            TransportActivity.this,
+                            response.body()
+                    );
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(
+                            TransportActivity.this,
+                            "No means of transport found",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    recyclerView.setAdapter(
+                            new TransportAdapter(
+                                    TransportActivity.this,
+                                    new ArrayList<>()
+                            )
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<TransportProvider>> call, @NonNull Throwable t) {
+                Toast.makeText(
+                        TransportActivity.this,
+                        "Failed to load filtered transport results",
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
     }
