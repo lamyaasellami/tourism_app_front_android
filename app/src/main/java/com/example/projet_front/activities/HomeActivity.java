@@ -7,20 +7,16 @@ import com.example.projet_front.adapters.PopularPlaceAdapter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
-import com.example.projet_front.adapters.PopularPlaceAdapter;
-import com.example.projet_front.api.ApiService;
-import com.example.projet_front.models.PlaceResponse;
 
 import com.example.projet_front.utils.BottomNavBar;
 import com.google.android.gms.maps.*;
@@ -114,6 +110,24 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // 🔹 Charger toutes les places au démarrage
         fetchAllPlaces();
+        setupCategoryClicks();
+    }
+
+    private void setupCategoryClicks() {
+
+        // 1️⃣ Get the include container
+        View catEventsInclude = findViewById(R.id.cat_monuments);
+        // ⚠️ change id to the include that represents EVENTS
+
+        // 2️⃣ Get the inner layout inside category_item.xml
+        LinearLayout categoryEvents =
+                catEventsInclude.findViewById(R.id.category_events);
+
+        // 3️⃣ Set click listener
+        categoryEvents.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, EventsActivity.class);
+            startActivity(intent);
+        });
     }
 
     // ======================= FETCH ALL PLACES =======================

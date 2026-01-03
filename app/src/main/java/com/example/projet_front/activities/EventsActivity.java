@@ -38,7 +38,7 @@ public class EventsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_events);
 
         // This makes the icons appear and work!
-        BottomNavBar.setupBottomNav(this);
+        //BottomNavBar.setupBottomNav(this);
 
         setupListeners();
 
