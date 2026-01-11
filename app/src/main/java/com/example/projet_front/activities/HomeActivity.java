@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_home);
 
         // 🗺️ MAP
-        mapView = findViewById(R.id.mapView);
+       mapView = findViewById(R.id.mapView);
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
