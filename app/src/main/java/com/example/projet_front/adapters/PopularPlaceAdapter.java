@@ -22,6 +22,13 @@ public class PopularPlaceAdapter
         this.places = places;
     }
 
+    // 🔥 AJOUT IMPORTANT
+    public void updateList(List<PlaceResponse> newPlaces) {
+        this.places.clear();
+        this.places.addAll(newPlaces);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,15 +43,14 @@ public class PopularPlaceAdapter
 
         holder.title.setText(place.getName());
         holder.details.setText(place.getPlaceType());
-        holder.rating.setText("★ 4.8"); // temporaire
+        holder.rating.setText("★ 4.8");
 
-        // Image (plus tard avec Glide/Picasso)
         holder.image.setImageResource(R.drawable.koutoubia_placeholder);
     }
 
     @Override
     public int getItemCount() {
-        return places.size();
+        return places == null ? 0 : places.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
