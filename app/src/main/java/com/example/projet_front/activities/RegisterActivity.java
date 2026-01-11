@@ -36,8 +36,49 @@ public class RegisterActivity extends AppCompatActivity {
         currencyEt = findViewById(R.id.etCurrency);
         registerBtn = findViewById(R.id.btnRegister);
 
-        registerBtn.setOnClickListener(v -> registerUser());
+        registerBtn.setOnClickListener(v -> {
+            if (validateInputs()) {
+                registerUser();
+            }
+        });
+
     }
+
+    private boolean validateInputs() {
+
+        String email = emailEt.getText().toString().trim();
+        String password = passwordEt.getText().toString().trim();
+
+        // Email
+        if (email.isEmpty()) {
+            emailEt.setError("Email requis");
+            return false;
+        }
+
+        if (!email.contains("@")) {
+            emailEt.setError("Email invalide");
+            return false;
+        }
+
+        // Password
+        if (password.isEmpty()) {
+            passwordEt.setError("Mot de passe requis");
+            return false;
+        }
+
+        if (password.length() < 6) {
+            passwordEt.setError("Minimum 6 caractères");
+            return false;
+        }
+
+        if (!password.matches(".*[A-Z].*")) {
+            passwordEt.setError("Doit contenir une majuscule");
+            return false;
+        }
+
+        return true;
+    }
+
 
     private void registerUser() {
         UserRegisterRequest request = new UserRegisterRequest();
