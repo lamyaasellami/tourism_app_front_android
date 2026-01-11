@@ -45,9 +45,6 @@ public class PlaceActivity extends AppCompatActivity {
         ImageView btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
-        // 🧭 BOTTOM NAV
-        BottomNavBar.setupBottomNav(this);
-
         // 📋 RECYCLER
         recyclerView = findViewById(R.id.recyclerViewPlaces);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

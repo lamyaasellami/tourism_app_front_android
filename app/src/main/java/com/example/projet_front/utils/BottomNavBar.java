@@ -1,7 +1,6 @@
 package com.example.projet_front.utils;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,10 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.projet_front.R;
-import com.example.projet_front.activities.HomeFragment;
-import com.example.projet_front.activities.HotelFragment;
-import com.example.projet_front.activities.ProfileFragment;
-import com.example.projet_front.activities.TransportFragment;
+import com.example.projet_front.fragments.HomeFragment;
+import com.example.projet_front.fragments.HotelFragment;
+import com.example.projet_front.fragments.ProfileFragment;
+import com.example.projet_front.fragments.TransportFragment;
 
 public class BottomNavBar {
 

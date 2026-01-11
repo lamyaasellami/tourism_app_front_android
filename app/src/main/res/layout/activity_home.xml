@@ -102,9 +102,9 @@
                     android:layout_marginTop="8dp">
 
                     <include layout="@layout/category_item" android:id="@+id/cat_monuments" />
-                    <include layout="@layout/category_item" android:id="@+id/cat_hotels" />
+                    <!--<include layout="@layout/category_item" android:id="@+id/cat_hotels" />
                     <include layout="@layout/category_item" android:id="@+id/cat_restaurants" />
-                    <include layout="@layout/category_item" android:id="@+id/cat_transport" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_transport" />-->
                 </LinearLayout>
 
                 <RelativeLayout
@@ -146,38 +146,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <!-- BOTTOM NAV -->
-    <!--<LinearLayout
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="@color/blanc"
-        android:elevation="8dp">
-
-        <include
-            android:id="@+id/nav_accueil"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_hotels"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_transport"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_favoris"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_profil"
-            layout="@layout/nav_item"/>
-    </LinearLayout>-->
-
-
-
 </RelativeLayout>

@@ -10,6 +10,7 @@
 
     <!-- CATEGORIE 1 : Restaurants -->
     <LinearLayout
+        android:id="@+id/category_restaurants"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -89,6 +90,7 @@
 
     <!-- CATEGORIE 3 : Endroits touristiques -->
     <LinearLayout
+        android:id="@+id/category_places"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -26,7 +26,7 @@
         </activity>
         <!--<activity android:name=".activities.HomeActivity" />-->
 
-        <!--<activity android:name=".activities.EventsActivity" />-->
+        <activity android:name=".activities.EventsActivity" />
         <!--<activity android:name=".activities.TransportActivity" />-->
         <!--<activity android:name=".activities.HotelActivity" />-->
         <!--<activity android:name=".activities.ProfileActivity" />-->

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
+import com.example.projet_front.interfaces.OnPlaceClickListener;
 import com.example.projet_front.models.PlaceResponse;
 
 import java.util.List;
@@ -22,19 +23,23 @@ public class PopularPlaceAdapter
     private OnPlaceClickListener listener;
 
 
-    public PopularPlaceAdapter(List<PlaceResponse> places,
-                               OnPlaceClickListener listener) {
+    public PopularPlaceAdapter(List<PlaceResponse> places) {
+        this.places = places;
+        this.listener = listener;
+    }
+    public PopularPlaceAdapter(List<PlaceResponse> places, OnPlaceClickListener listener) {
         this.places = places;
         this.listener = listener;
     }
 
 
+
     // 🔥 AJOUT IMPORTANT
-    /*public void updateList(List<PlaceResponse> newPlaces) {
+    public void updateList(List<PlaceResponse> newPlaces) {
         this.places.clear();
         this.places.addAll(newPlaces);
         notifyDataSetChanged();
-    }*/
+    }
 
     @NonNull
     @Override

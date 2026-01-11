@@ -93,37 +93,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- BOTTOM NAV -->
-    <LinearLayout
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/blanc"
-        android:elevation="8dp"
-        android:orientation="horizontal">
-
-        <include
-            android:id="@+id/nav_accueil"
-            layout="@layout/nav_item" />
-
-        <include
-            android:id="@+id/nav_hotels"
-            layout="@layout/nav_item" />
-
-        <include
-            android:id="@+id/nav_transport"
-            layout="@layout/nav_item" />
-
-        <include
-            android:id="@+id/nav_favoris"
-            layout="@layout/nav_item" />
-
-        <include
-            android:id="@+id/nav_profil"
-            layout="@layout/nav_item" />
-    </LinearLayout>
-
-
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.projet_front.activities;
+package com.example.projet_front.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -228,5 +227,15 @@ public class ProfileFragment extends Fragment {
 
         ((TextView) statCardPoints.findViewById(R.id.tvStatCount))
                 .setText(String.valueOf(points));
+    }
+
+    // ================= BOTTOM NAV REFRESH =================
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (getActivity() != null) {
+            BottomNavBar.setupBottomNav(getActivity());
+        }
     }
 }

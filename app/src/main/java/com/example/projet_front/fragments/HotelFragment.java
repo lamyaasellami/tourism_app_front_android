@@ -1,4 +1,4 @@
-package com.example.projet_front.activities;
+package com.example.projet_front.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,17 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
-import com.example.projet_front.adapters.TransportAdapter;
+import com.example.projet_front.adapters.AccommodationAdapter;
 import com.example.projet_front.api.ApiClient;
 import com.example.projet_front.api.ApiService;
-import com.example.projet_front.models.TransportProvider;
+import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.utils.BottomNavBar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -29,12 +27,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TransportFragment extends Fragment {
+public class HotelFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private TransportAdapter adapter;
+    private AccommodationAdapter adapter;
 
-    public TransportFragment() {
+    public HotelFragment() {
         // Required empty public constructor
     }
 
@@ -45,25 +43,15 @@ public class TransportFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        View view = inflater.inflate(R.layout.activity_transport, container, false);
+        View view = inflater.inflate(R.layout.activity_hotel, container, false);
 
         setupFilterChips(view);
         setupRecyclerView(view);
         setupListeners(view);
 
-        fetchAllTransportations();
+        fetchAllAccommodations();
 
         return view;
-    }
-
-    // ================= LISTENERS =================
-    private void setupListeners(View view) {
-
-        ImageView btnBack = view.findViewById(R.id.btnBack);
-
-        btnBack.setOnClickListener(v ->
-                requireActivity().getSupportFragmentManager().popBackStack()
-        );
     }
 
     // ================= FILTER CHIPS =================
@@ -81,59 +69,57 @@ public class TransportFragment extends Fragment {
 
                 if (selectedChip != null) {
                     int position = group.indexOfChild(selectedChip);
-                    filterTransportations(position);
+                    filterHotels(selectedChip.getText().toString(), position);
                 }
             });
         }
     }
 
-    private void filterTransportations(int position) {
+    private void filterHotels(String category, int position) {
 
         switch (position) {
             case 0:
-                fetchAllTransportations();
+                fetchAllAccommodations();
                 break;
 
             case 1:
-                fetchTransportationsByType("train");
+                fetchAccommodationsByType("riad");
                 break;
 
             case 2:
-                fetchTransportationsByType("tram");
+                fetchAccommodationsByType("hotel");
                 break;
 
             case 3:
-                fetchTransportationsByType("bus");
+                fetchAccommodationsByType("platform");
                 break;
 
             case 4:
-                fetchTransportationsByType("other");
+                fetchAccommodationsByType("luxury");
                 break;
         }
     }
 
     // ================= RECYCLER VIEW =================
     private void setupRecyclerView(View view) {
-
-        recyclerView = view.findViewById(R.id.recyclerViewTransportations);
+        recyclerView = view.findViewById(R.id.recyclerViewAccommodations);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
     }
 
     // ================= API CALLS =================
-    private void fetchAllTransportations() {
+    private void fetchAllAccommodations() {
 
         ApiService api = ApiClient.getClient().create(ApiService.class);
 
-        api.getAllTransportations().enqueue(new Callback<List<TransportProvider>>() {
-
+        api.getAllAccommodations().enqueue(new Callback<List<AccommodationProvider>>() {
             @Override
             public void onResponse(
-                    @NonNull Call<List<TransportProvider>> call,
-                    @NonNull Response<List<TransportProvider>> response
+                    Call<List<AccommodationProvider>> call,
+                    Response<List<AccommodationProvider>> response
             ) {
                 if (isAdded() && response.isSuccessful() && response.body() != null) {
-                    adapter = new TransportAdapter(
+                    adapter = new AccommodationAdapter(
                             requireContext(),
                             response.body()
                     );
@@ -142,14 +128,11 @@ public class TransportFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(
-                    @NonNull Call<List<TransportProvider>> call,
-                    @NonNull Throwable throwable
-            ) {
+            public void onFailure(Call<List<AccommodationProvider>> call, Throwable t) {
                 if (isAdded()) {
                     Toast.makeText(
                             requireContext(),
-                            "Failed to load transportations",
+                            "Failed to load accommodations",
                             Toast.LENGTH_LONG
                     ).show();
                 }
@@ -157,32 +140,31 @@ public class TransportFragment extends Fragment {
         });
     }
 
-    private void fetchTransportationsByType(String type) {
+    private void fetchAccommodationsByType(String type) {
 
         ApiService api = ApiClient.getClient().create(ApiService.class);
 
-        api.getTransportationsByType(type).enqueue(new Callback<List<TransportProvider>>() {
-
+        api.getAccommodationsByType(type).enqueue(new Callback<List<AccommodationProvider>>() {
             @Override
             public void onResponse(
-                    @NonNull Call<List<TransportProvider>> call,
-                    @NonNull Response<List<TransportProvider>> response
+                    Call<List<AccommodationProvider>> call,
+                    Response<List<AccommodationProvider>> response
             ) {
                 if (!isAdded()) return;
 
                 if (response.isSuccessful() && response.body() != null) {
-                    adapter = new TransportAdapter(
+                    adapter = new AccommodationAdapter(
                             requireContext(),
                             response.body()
                     );
                 } else {
                     Toast.makeText(
                             requireContext(),
-                            "No means of transport found",
+                            "No accommodations found",
                             Toast.LENGTH_SHORT
                     ).show();
 
-                    adapter = new TransportAdapter(
+                    adapter = new AccommodationAdapter(
                             requireContext(),
                             new ArrayList<>()
                     );
@@ -192,19 +174,26 @@ public class TransportFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(
-                    @NonNull Call<List<TransportProvider>> call,
-                    @NonNull Throwable t
-            ) {
+            public void onFailure(Call<List<AccommodationProvider>> call, Throwable t) {
                 if (isAdded()) {
                     Toast.makeText(
                             requireContext(),
-                            "Failed to load filtered transport results",
+                            "Failed to load filtered accommodations",
                             Toast.LENGTH_LONG
                     ).show();
                 }
             }
         });
+    }
+
+    // ================= LISTENERS =================
+    private void setupListeners(View view) {
+
+        ImageView btnBack = view.findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v ->
+                requireActivity().getSupportFragmentManager().popBackStack()
+        );
     }
 
     // ================= BOTTOM NAV REFRESH =================
