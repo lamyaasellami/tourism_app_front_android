@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupPlaceTypes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        app:chipSpacingHorizontal="20dp">
+
+        <!-- ALL -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAll"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:checked="true"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <!-- POPULAR -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPopular"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popular"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <!-- Monument -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMonument"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monument"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <!-- Mosquée -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMosquee"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mosquée"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <!-- Parc -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipParc"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parc"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <!-- Restaurant -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipRestaurant"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+</LinearLayout>

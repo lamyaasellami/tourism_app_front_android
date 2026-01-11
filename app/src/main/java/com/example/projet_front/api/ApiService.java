@@ -44,6 +44,11 @@ public interface ApiService {
             @Query("opening") String opening
     );
 
+    // 🔹 AJOUTER CETTE MÉTHODE
+    @GET("places/search")
+    Call<List<PlaceResponse>> searchPlaces(@Query("keyword") String keyword);
+
+
 
     // ================= ACCOMMODATIONS =================
     // 🔹 GET ALL accommodations
