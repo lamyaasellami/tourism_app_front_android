@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.HotelActivity">
+    tools:context=".activities.HotelFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -135,7 +135,7 @@
 
     </ScrollView>
     <!-- BOTTOM NAV -->
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -163,6 +163,6 @@
         <include
             android:id="@+id/nav_profil"
             layout="@layout/nav_item" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </RelativeLayout>

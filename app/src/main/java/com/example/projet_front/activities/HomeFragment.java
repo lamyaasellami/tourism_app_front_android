@@ -1,5 +1,9 @@
 package com.example.projet_front.activities;
 
+import static android.app.PendingIntent.getActivity;
+import static androidx.core.content.ContentProviderCompat.requireContext;
+import static java.security.AccessController.getContext;
+
 import com.example.projet_front.api.ApiClient;
 import com.example.projet_front.api.ApiService;
 import com.example.projet_front.models.PlaceResponse;
@@ -7,12 +11,18 @@ import com.example.projet_front.adapters.PopularPlaceAdapter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
     private GoogleMap googleMap;
@@ -40,13 +50,19 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.activity_home, container, false);
 
         // 🗺️ MAP
-        mapView = findViewById(R.id.mapView);
+        mapView = view.findViewById(R.id.mapView);
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
@@ -54,17 +70,14 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
 
-        // 🧭 BOTTOM NAV
-        BottomNavBar.setupBottomNav(this);
-
         // 📋 RECYCLER VIEW
-        recyclerView = findViewById(R.id.recycler_popular);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = view.findViewById(R.id.recycler_popular);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // 🔹 SPINNERS
-        typeSpinner  = findViewById(R.id.spinner_type);
-        priceSpinner = findViewById(R.id.spinner_price);
-        timeSpinner  = findViewById(R.id.spinner_time);
+        typeSpinner  = view.findViewById(R.id.spinner_type);
+        priceSpinner = view.findViewById(R.id.spinner_price);
+        timeSpinner  = view.findViewById(R.id.spinner_time);
 
         // 🔹 SPINNER DATA
         String[] placeTypes = {
@@ -80,22 +93,38 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 "Marché",
                 "Parc"
         };
+
         String[] prices = {"Tous les prix","Gratuit","0 - 50 DH","50 - 150 DH","150+ DH"};
         String[] openingTimes = {"Tous","Matin","Après-midi","Soir","Ouvert maintenant"};
 
-        typeSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, placeTypes));
-        ((ArrayAdapter<?>) typeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                placeTypes
+        ));
+        ((ArrayAdapter<?>) typeSpinner.getAdapter())
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        priceSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, prices));
-        ((ArrayAdapter<?>) priceSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        priceSpinner.setAdapter(new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                prices
+        ));
+        ((ArrayAdapter<?>) priceSpinner.getAdapter())
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        timeSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, openingTimes));
-        ((ArrayAdapter<?>) timeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        timeSpinner.setAdapter(new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                openingTimes
+        ));
+        ((ArrayAdapter<?>) timeSpinner.getAdapter())
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // 🔹 Listener pour le spinner de type
-        typeSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+        // 🔹 TYPE FILTER
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedType = typeSpinner.getSelectedItem().toString();
                 if (selectedType.equals("Tous")) {
                     fetchAllPlaces();
@@ -105,28 +134,40 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // 🔹 Charger toutes les places au démarrage
         fetchAllPlaces();
-        setupCategoryClicks();
+        setupCategoryClicks(view);
+
+        return view;
     }
 
-    private void setupCategoryClicks() {
 
-        // 1️⃣ Get the include container
-        View catEventsInclude = findViewById(R.id.cat_monuments);
-        // ⚠️ change id to the include that represents EVENTS
-
-        // 2️⃣ Get the inner layout inside category_item.xml
+    private void setupCategoryClicks(View root) {
+        /*View catEventsInclude = root.findViewById(R.id.cat_monuments);
         LinearLayout categoryEvents =
                 catEventsInclude.findViewById(R.id.category_events);
 
-        // 3️⃣ Set click listener
         categoryEvents.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, EventsActivity.class);
+            Intent intent = new Intent(getActivity(), EventsFragment.class);
             startActivity(intent);
+        });*/
+        View catEventsInclude = root.findViewById(R.id.cat_monuments);
+        LinearLayout categoryEvents =
+                catEventsInclude.findViewById(R.id.category_events);
+
+        categoryEvents.setOnClickListener(v -> {
+
+            if (getActivity() == null) return;
+
+            FragmentManager fm =
+                    ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, new EventsFragment())
+                    .addToBackStack(null) // ✅ allows back button
+                    .commit();
         });
     }
 
@@ -137,9 +178,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         call.enqueue(new Callback<List<PlaceResponse>>() {
             @Override
-            public void onResponse(Call<List<PlaceResponse>> call, Response<List<PlaceResponse>> response) {
+            public void onResponse(Call<List<PlaceResponse>> call,
+                                   Response<List<PlaceResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    recyclerView.setAdapter(new PopularPlaceAdapter(response.body()));
+                    recyclerView.setAdapter(
+                            new PopularPlaceAdapter(response.body())
+                    );
                 }
             }
 
@@ -157,9 +201,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         call.enqueue(new Callback<List<PlaceResponse>>() {
             @Override
-            public void onResponse(Call<List<PlaceResponse>> call, Response<List<PlaceResponse>> response) {
+            public void onResponse(Call<List<PlaceResponse>> call,
+                                   Response<List<PlaceResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    recyclerView.setAdapter(new PopularPlaceAdapter(response.body()));
+                    recyclerView.setAdapter(
+                            new PopularPlaceAdapter(response.body())
+                    );
                 }
             }
 
@@ -179,13 +226,33 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
-    @Override protected void onResume() { super.onResume(); mapView.onResume(); }
-    @Override protected void onPause() { super.onPause(); mapView.onPause(); }
-    @Override protected void onDestroy() { super.onDestroy(); mapView.onDestroy(); }
-    @Override public void onLowMemory() { super.onLowMemory(); mapView.onLowMemory(); }
+    // ======================= MAP LIFECYCLE =======================
+    @Override public void onResume() {
+        super.onResume();
+        mapView.onResume();
+
+        if (getActivity() != null) {
+            BottomNavBar.setupBottomNav(getActivity());
+        }
+    }
+
+    @Override public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
         if (mapViewBundle == null) {
@@ -195,3 +262,4 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onSaveInstanceState(mapViewBundle);
     }
 }
+
