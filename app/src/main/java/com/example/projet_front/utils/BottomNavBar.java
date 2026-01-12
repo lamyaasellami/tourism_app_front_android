@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.projet_front.R;
+import com.example.projet_front.fragments.FavoritesFragment;
 import com.example.projet_front.fragments.HomeFragment;
 import com.example.projet_front.fragments.HotelFragment;
 import com.example.projet_front.fragments.ProfileFragment;
@@ -30,7 +31,7 @@ public class BottomNavBar {
         setNavItem(activity, navAccueil, R.drawable.ic_accueil, "Accueil", isCurrentFragment(activity, HomeFragment.class));
         setNavItem(activity, navHotels, R.drawable.ic_hotel, "Hôtels", isCurrentFragment(activity, HotelFragment.class));
         setNavItem(activity, navTransport, R.drawable.ic_transport, "Transport", isCurrentFragment(activity, TransportFragment.class)); // FIX: Change to appropriate Activity
-        setNavItem(activity, navFavoris, R.drawable.ic_favorite, "Favoris", false);
+        setNavItem(activity, navFavoris, R.drawable.ic_favorite, "Favoris", isCurrentFragment(activity, FavoritesFragment.class));
         setNavItem(activity, navProfil, R.drawable.ic_profile, "Profil", isCurrentFragment(activity, ProfileFragment.class));
 
         // 3. Click Listeners
@@ -80,6 +81,19 @@ public class BottomNavBar {
 
                 fm.beginTransaction()
                         .replace(R.id.fragment_container, new ProfileFragment())
+                        .addToBackStack(null) // 👈 VERY IMPORTANT
+                        .commit();
+            }
+        });
+
+        navFavoris.setOnClickListener(v -> {
+            if (!isCurrentFragment(activity, FavoritesFragment.class)) {
+
+                FragmentManager fm =
+                        ((AppCompatActivity) activity).getSupportFragmentManager();
+
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, new FavoritesFragment())
                         .addToBackStack(null) // 👈 VERY IMPORTANT
                         .commit();
             }

@@ -91,8 +91,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                             List<PlaceResponse> placeList = response.body();
 
-                            PopularPlaceAdapter adapter =
-                                    new PopularPlaceAdapter(placeList, place -> {
+                            // ✅ CORRECTION : Ajouter getContext() comme premier paramètre
+                            PopularPlaceAdapter adapter = new PopularPlaceAdapter(
+                                    getContext(),  // ← Ajouté
+                                    placeList,
+                                    place -> {
                                         if (getActivity() != null) {
                                             Intent intent = new Intent(
                                                     getActivity(),
@@ -101,7 +104,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                             intent.putExtra("place_id", place.getPlaceId());
                                             startActivity(intent);
                                         }
-                                    });
+                                    }
+                            );
 
                             recyclerView.setAdapter(adapter);
                         }
@@ -110,10 +114,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                     @Override
                     public void onFailure(Call<List<PlaceResponse>> call, Throwable t) {
                         t.printStackTrace();
-                        // Print full stack trace
-
-
-                        // Log the error in Logcat with a tag
                         Log.e("API_ERROR", "Failed to load places", t);
                         if (isAdded()) {
                             Toast.makeText(getContext(),

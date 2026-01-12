@@ -2,6 +2,7 @@ package com.example.projet_front.api;
 
 import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.models.EventProvider;
+import com.example.projet_front.models.FavoriteRequest;
 import com.example.projet_front.models.TransportProvider;
 import com.example.projet_front.models.UserLoginRequest;
 import com.example.projet_front.models.UserRegisterRequest;
@@ -12,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import java.util.List;
@@ -79,4 +81,17 @@ public interface ApiService {
     // 🔹 GET ALL events
     @GET("events")
     Call<List<EventProvider>> getAllEvents();
+
+
+    //================= Favorites ===============
+
+    @POST("favorites")
+    Call<Void> addFavorite(@Body FavoriteRequest request);
+
+    @HTTP(method = "DELETE", path = "favorites", hasBody = true)
+    Call<Void> removeFavorite(@Body FavoriteRequest request);
+
+    @GET("favorites/user/{userId}")
+    Call<List<Integer>> getFavorites(@Path("userId") int userId);
+
 }

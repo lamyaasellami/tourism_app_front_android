@@ -65,6 +65,9 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="top"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:src="@drawable/ic_heart_outline"
             app:tint="@color/gris_texte"
             android:contentDescription="Ajouter aux favoris"/>
