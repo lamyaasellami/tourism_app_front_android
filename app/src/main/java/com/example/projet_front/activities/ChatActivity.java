@@ -30,7 +30,6 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatbot_convo);
 
-        // Initialisation des vues
         messageContainer = findViewById(R.id.messageContainer);
         introContainer = findViewById(R.id.introContainer);
         inputMessage = findViewById(R.id.inputMessage);
