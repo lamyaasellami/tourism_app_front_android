@@ -1,18 +1,20 @@
 package com.example.projet_front.utils;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.projet_front.R;
-import com.example.projet_front.activities.HomeActivity;
-import com.example.projet_front.activities.HotelActivity;
-import com.example.projet_front.activities.ProfileActivity;
-import com.example.projet_front.activities.TransportActivity;
+import com.example.projet_front.fragments.HomeFragment;
+import com.example.projet_front.fragments.HotelFragment;
+import com.example.projet_front.fragments.ProfileFragment;
+import com.example.projet_front.fragments.TransportFragment;
 
 public class BottomNavBar {
 
@@ -25,46 +27,80 @@ public class BottomNavBar {
         View navProfil = activity.findViewById(R.id.nav_profil);
 
         // 2. Set the items (Logic based on which Activity is calling this)
-        setNavItem(activity, navAccueil, R.drawable.ic_accueil, "Accueil", activity instanceof HomeActivity);
-        setNavItem(activity, navHotels, R.drawable.ic_hotel, "Hôtels", activity instanceof HotelActivity);
-        setNavItem(activity, navTransport, R.drawable.ic_transport, "Transport", activity instanceof TransportActivity); // FIX: Change to appropriate Activity
+        setNavItem(activity, navAccueil, R.drawable.ic_accueil, "Accueil", isCurrentFragment(activity, HomeFragment.class));
+        setNavItem(activity, navHotels, R.drawable.ic_hotel, "Hôtels", isCurrentFragment(activity, HotelFragment.class));
+        setNavItem(activity, navTransport, R.drawable.ic_transport, "Transport", isCurrentFragment(activity, TransportFragment.class)); // FIX: Change to appropriate Activity
         setNavItem(activity, navFavoris, R.drawable.ic_favorite, "Favoris", false);
-        setNavItem(activity, navProfil, R.drawable.ic_profile, "Profil", activity instanceof ProfileActivity);
+        setNavItem(activity, navProfil, R.drawable.ic_profile, "Profil", isCurrentFragment(activity, ProfileFragment.class));
 
         // 3. Click Listeners
+        // ✅ HOME (Fragment)
         navAccueil.setOnClickListener(v -> {
-            if (!(activity instanceof HomeActivity)) {
-                Intent intent = new Intent(activity, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                activity.startActivity(intent);
+            if (!isCurrentFragment(activity, HomeFragment.class)) {
+
+                FragmentManager fm =
+                        ((AppCompatActivity) activity).getSupportFragmentManager();
+
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, new HomeFragment())
+                        .commit();
+            }
+        });
+        navHotels.setOnClickListener(v -> {;
+            if (!isCurrentFragment(activity, HotelFragment.class)) {
+
+                FragmentManager fm =
+                        ((AppCompatActivity) activity).getSupportFragmentManager();
+
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, new HotelFragment())
+                        .addToBackStack(null) // 👈 VERY IMPORTANT
+                        .commit();
             }
         });
 
-        navHotels.setOnClickListener(v -> {
-            if (!(activity instanceof HotelActivity)) {
-                Intent intent = new Intent(activity, HotelActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                activity.startActivity(intent);
-            }
-        });
+        navTransport.setOnClickListener(v -> {;
+            if (!isCurrentFragment(activity, TransportFragment.class)) {
 
-        navTransport.setOnClickListener(v -> {
-            if (!(activity instanceof TransportActivity)) {
-                Intent intent = new Intent(activity, TransportActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                activity.startActivity(intent);
+                FragmentManager fm =
+                        ((AppCompatActivity) activity).getSupportFragmentManager();
+
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, new TransportFragment())
+                        .addToBackStack(null) // 👈 VERY IMPORTANT
+                        .commit();
             }
         });
 
         navProfil.setOnClickListener(v -> {
-            if (!(activity instanceof ProfileActivity)) {
-                Intent intent = new Intent(activity, ProfileActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                activity.startActivity(intent);
+            if (!isCurrentFragment(activity, ProfileFragment.class)) {
+
+                FragmentManager fm =
+                        ((AppCompatActivity) activity).getSupportFragmentManager();
+
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, new ProfileFragment())
+                        .addToBackStack(null) // 👈 VERY IMPORTANT
+                        .commit();
             }
         });
+    }
 
-        // Add listeners for Hotels, Transport, etc. similarly
+
+    // ================== HELPERS ==================
+
+    private static boolean isCurrentFragment(
+            Activity activity,
+            Class<? extends Fragment> fragmentClass) {
+
+        if (!(activity instanceof AppCompatActivity)) return false;
+
+        Fragment current =
+                ((AppCompatActivity) activity)
+                        .getSupportFragmentManager()
+                        .findFragmentById(R.id.fragment_container);
+
+        return current != null && fragmentClass.isInstance(current);
     }
 
     private static void setNavItem(Activity activity, View item, int icon, String text, boolean active) {

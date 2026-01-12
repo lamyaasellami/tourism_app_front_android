@@ -1,5 +1,7 @@
 package com.example.projet_front.adapters;
+import com.example.projet_front.activities.PlaceDetailActivity;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
+import com.example.projet_front.interfaces.OnPlaceClickListener;
 import com.example.projet_front.models.PlaceResponse;
 
 import java.util.List;
@@ -17,9 +20,25 @@ public class PopularPlaceAdapter
         extends RecyclerView.Adapter<PopularPlaceAdapter.ViewHolder> {
 
     private List<PlaceResponse> places;
+    private OnPlaceClickListener listener;
+
 
     public PopularPlaceAdapter(List<PlaceResponse> places) {
         this.places = places;
+        this.listener = listener;
+    }
+    public PopularPlaceAdapter(List<PlaceResponse> places, OnPlaceClickListener listener) {
+        this.places = places;
+        this.listener = listener;
+    }
+
+
+
+    // 🔥 AJOUT IMPORTANT
+    public void updateList(List<PlaceResponse> newPlaces) {
+        this.places.clear();
+        this.places.addAll(newPlaces);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -40,11 +59,18 @@ public class PopularPlaceAdapter
 
         // Image (plus tard avec Glide/Picasso)
         holder.image.setImageResource(R.drawable.koutoubia_placeholder);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), PlaceDetailActivity.class);
+            intent.putExtra("place_id", place.getPlaceId());
+            v.getContext().startActivity(intent);
+        });
+
+
     }
 
     @Override
     public int getItemCount() {
-        return places.size();
+        return places == null ? 0 : places.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

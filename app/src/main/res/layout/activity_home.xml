@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fond_clair">
@@ -8,88 +9,64 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation_bar">
+        android:layout_above="@id/bottom_navigation_bar"
+        tools:ignore="NotSibling">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- HEADER -->
-            <RelativeLayout
-                android:layout_width="match_parent"
+    <!-- HEADER -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp"
+        android:background="@color/vert_fonce">
+
+        <LinearLayout
+            android:id="@+id/header_text_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="40dp"
-                android:background="@color/vert_fonce">
+                android:text="Découvrir"
+                android:textColor="@color/blanc"
+                android:textSize="26sp"
+                android:textStyle="bold"/>
 
-                <LinearLayout
-                    android:id="@+id/header_text_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marrakech, Maroc"
+                android:textColor="@color/beige_clair"
+                android:textSize="14sp"/>
+        </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Découvrir"
-                        android:textColor="@color/blanc"
-                        android:textSize="26sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Marrakech, Maroc"
-                        android:textColor="@color/beige_clair"
-                        android:textSize="14sp"/>
-
-                </LinearLayout>
-
-                <!-- FILTRES -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/header_text_container"
-                    android:layout_margin="16dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:weightSum="3">
-
-                    <!-- TYPE -->
-                    <Spinner
-                        android:id="@+id/spinner_type"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_filter_gold"
-                        android:padding="8dp"/>
-
-                    <!-- PRIX -->
-                    <Spinner
-                        android:id="@+id/spinner_price"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/bg_filter_gold"
-                        android:padding="8dp"/>
-
-                    <!-- HORAIRES -->
-                    <Spinner
-                        android:id="@+id/spinner_time"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/bg_filter_gold"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-
-
-            </RelativeLayout>
+        <!-- SEARCH BAR -->
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/header_text_container"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_input"
+            android:drawableEnd="@drawable/ic_filtre"
+            android:drawablePadding="10dp"
+            android:hint="Rechercher destinations, hôtels..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:textColor="@color/noir"
+            android:textColorHint="@color/gris_texte"/>
+    </RelativeLayout>
 
 
 
@@ -112,6 +89,7 @@
                     <com.google.android.gms.maps.MapView
                         android:id="@+id/mapView"
                         android:layout_width="match_parent"
+                        android:importantForAccessibility="no"
                         android:layout_height="match_parent" />
                 </androidx.cardview.widget.CardView>
 
@@ -124,9 +102,9 @@
                     android:layout_marginTop="8dp">
 
                     <include layout="@layout/category_item" android:id="@+id/cat_monuments" />
-                    <include layout="@layout/category_item" android:id="@+id/cat_hotels" />
+                    <!--<include layout="@layout/category_item" android:id="@+id/cat_hotels" />
                     <include layout="@layout/category_item" android:id="@+id/cat_restaurants" />
-                    <include layout="@layout/category_item" android:id="@+id/cat_transport" />
+                    <include layout="@layout/category_item" android:id="@+id/cat_transport" />-->
                 </LinearLayout>
 
                 <RelativeLayout
@@ -168,38 +146,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <!-- BOTTOM NAV -->
-    <LinearLayout
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="@color/blanc"
-        android:elevation="8dp">
-
-        <include
-            android:id="@+id/nav_accueil"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_hotels"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_transport"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_favoris"
-            layout="@layout/nav_item"/>
-
-        <include
-            android:id="@+id/nav_profil"
-            layout="@layout/nav_item"/>
-    </LinearLayout>
-
-
-
 </RelativeLayout>

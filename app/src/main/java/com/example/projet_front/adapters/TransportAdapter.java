@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
-import com.example.projet_front.activities.TransportActivity;
-import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.models.TransportProvider;
 
 import java.util.List;
@@ -22,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.ViewHolder> {
 

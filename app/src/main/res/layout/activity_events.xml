@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.TransportFragment">
+    tools:context=".fragments.HotelFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="120dp"
                     android:background="#10614f"
                     android:orientation="vertical"
                     android:padding="1dp">
@@ -57,7 +57,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="Transport"
+                            android:text="Special Events"
                             android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -73,24 +73,6 @@
                             app:tint="@android:color/white" />
 
                     </RelativeLayout>
-                    <!-- SEARCH BAR -->
-                    <EditText
-                        android:id="@+id/search_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@id/header_text_container"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@drawable/bg_input"
-                        android:drawableEnd="@drawable/ic_filtre"
-                        android:drawablePadding="8dp"
-                        android:hint="Rechercher destinations, hôtels..."
-                        android:imeOptions="actionSearch"
-                        android:inputType="text"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:textColorHint="@color/gris_texte" />
                 </LinearLayout>
 
                 <!-- Gradient overlay for better text visibility -->
@@ -101,20 +83,6 @@
                     android:background="@drawable/gradient_overlay" />
             </androidx.cardview.widget.CardView>
 
-            <!-- Horizontal Scrollable Filter Buttons -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:scrollbars="none"
-                android:paddingStart="1dp"
-                android:paddingEnd="1dp">
-
-                <include layout="@layout/transport_filter_chips" />
-
-            </HorizontalScrollView>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -122,17 +90,48 @@
 
                 <!-- After the FilterChips fragment -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewTransportations"
+                    android:id="@+id/recyclerViewEvents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="18dp"
                     android:clipToPadding="false"
                     android:paddingBottom="16dp" />
 
             </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
 
+    <!-- BOTTOM NAV -->
+    <!--<LinearLayout
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blanc"
+        android:elevation="8dp"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/nav_accueil"
+            layout="@layout/nav_item" />
+
+        <include
+            android:id="@+id/nav_hotels"
+            layout="@layout/nav_item" />
+
+        <include
+            android:id="@+id/nav_transport"
+            layout="@layout/nav_item" />
+
+        <include
+            android:id="@+id/nav_favoris"
+            layout="@layout/nav_item" />
+
+        <include
+            android:id="@+id/nav_profil"
+            layout="@layout/nav_item" />
+    </LinearLayout>-->
 
 </RelativeLayout>

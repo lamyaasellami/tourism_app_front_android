@@ -13,4 +13,21 @@
 
     <color name="nav_active">#0B5E4B</color>
     <color name="nav_inactive">#AAAAAA</color>
+
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <!-- Chip Background Colors by Event Type -->
+    <color name="chip_sports_background">#FF5722</color>
+    <color name="chip_culture_background">#9C27B0</color>
+    <color name="chip_music_background">#E91E63</color>
+    <color name="chip_festival_background">#FF9800</color>
+    <color name="chip_conference_background">#2196F3</color>
+
+    <!-- Other UI Colors -->
+    <color name="icon_tint">#616161</color>
+    <color name="divider_color">#E0E0E0</color>
+    <color name="button_stroke">#1976D2</color>
 </resources>

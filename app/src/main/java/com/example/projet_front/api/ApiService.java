@@ -1,6 +1,7 @@
 package com.example.projet_front.api;
 
 import com.example.projet_front.models.AccommodationProvider;
+import com.example.projet_front.models.EventProvider;
 import com.example.projet_front.models.TransportProvider;
 import com.example.projet_front.models.UserLoginRequest;
 import com.example.projet_front.models.UserRegisterRequest;
@@ -26,23 +27,30 @@ public interface ApiService {
 
     // ================= PLACES =================
 
-    // Tous les lieux
+    // 🔹 Tous les lieux
     @GET("api/places")
     Call<List<PlaceResponse>> getAllPlaces();
 
-    // Par type (POPULAIRES, Monument, etc.)
+    // 🔹 Par catégorie
     @GET("api/places/type/{type}")
     Call<List<PlaceResponse>> getPlacesByType(@Path("type") String type);
 
+    // 🔹 Recherche avec filtres
+    @GET("api/places/search")
+    Call<List<PlaceResponse>> searchPlaces(@Query("q") String keyword);
+
+    @GET("api/places/{id}")
+    Call<PlaceResponse> getPlaceById(@Path("id") Integer id);
+
     // 🔹 Filtre complet (une seule méthode !)
-    @GET("api/places/filter")
+    /*@GET("api/places/filter")
     Call<List<PlaceResponse>> filterPlaces(
             @Query("q") String q,
             @Query("type") String type,
             @Query("minPrice") Double minPrice,
             @Query("maxPrice") Double maxPrice,
             @Query("opening") String opening
-    );
+    );*/
 
 
     // ================= ACCOMMODATIONS =================
@@ -66,4 +74,9 @@ public interface ApiService {
     Call<List<TransportProvider>> getTransportationsByType(
             @Path("type") String type
     );
+
+    // ================= Events =================
+    // 🔹 GET ALL events
+    @GET("events")
+    Call<List<EventProvider>> getAllEvents();
 }
