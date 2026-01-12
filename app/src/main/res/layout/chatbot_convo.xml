@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fond_clair">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/vert_fonce"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tourism Chatbot"
+            android:textColor="@color/blanc"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/messageScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/header"
+        android:layout_above="@+id/inputBar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/messageContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <!-- Conteneur d'intro -->
+            <LinearLayout
+                android:id="@+id/introContainer"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:id="@+id/introImage"
+                    android:layout_width="180dp"
+                    android:layout_height="220dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/chatbot" />
+
+                <TextView
+                    android:id="@+id/introText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Visiting Morocco ? 🇲🇦"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/noir"
+                    android:layout_marginTop="12dp" />
+
+            </LinearLayout>
+
+            <!-- Ici les messages qui s'ajouteront dynamiquement -->
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <!-- Input bar -->
+    <LinearLayout
+        android:id="@+id/inputBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/beige_clair"
+        android:paddingHorizontal="12dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/inputMessage"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/input_bg"
+            android:hint="Message..."
+            android:paddingHorizontal="12dp"
+            android:textColor="@color/noir"
+            android:textColorHint="@color/noir" />
+
+        <ImageButton
+            android:id="@+id/sendBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_send"
+            app:tint="@color/vert_fonce"
+            android:contentDescription="Send" />
+
+    </LinearLayout>
+
+</RelativeLayout>

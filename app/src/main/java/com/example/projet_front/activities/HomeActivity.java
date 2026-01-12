@@ -38,6 +38,15 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        chatIcon = findViewById(R.id.chatIcon);
+        chatIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ChatActivity.class);
+
+                startActivity(intent);
+            }
+        });
         // 🗺️ MAP
        mapView = findViewById(R.id.mapView);
 
