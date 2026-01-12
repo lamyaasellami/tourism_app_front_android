@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.projet_front.R;
+import android.widget.ImageView;
+
 
 public class HelpCenterFragment extends Fragment {
 
@@ -30,6 +32,7 @@ public class HelpCenterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_help_center, container, false);
 
         initListeners(view);
+        initBackButton(view);
 
         return view;
     }
@@ -51,5 +54,14 @@ public class HelpCenterFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + number));
         startActivity(intent);
+    }
+    private void initBackButton(View view) {
+        ImageView btnBack = view.findViewById(R.id.btn_back);
+
+        btnBack.setOnClickListener(v -> {
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .popBackStack();
+        });
     }
 }
