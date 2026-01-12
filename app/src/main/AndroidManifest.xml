@@ -36,6 +36,7 @@
 
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.PlaceDetailActivity" />
+        <activity android:name=".activities.EditProfileActivity" />" />
 
 
         <meta-data

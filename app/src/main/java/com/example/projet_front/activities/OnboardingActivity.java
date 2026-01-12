@@ -41,7 +41,7 @@ public class OnboardingActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
             } else {
                 // Finish Onboarding and go to Login
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
             }
         });

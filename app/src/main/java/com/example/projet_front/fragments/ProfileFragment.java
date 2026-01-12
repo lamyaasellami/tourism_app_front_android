@@ -1,5 +1,6 @@
 package com.example.projet_front.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,19 +16,20 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.projet_front.R;
-import com.example.projet_front.models.UserRegisterRequest;
+import com.example.projet_front.activities.EditProfileActivity;
+import com.example.projet_front.activities.LoginActivity;
+import com.example.projet_front.api.ApiClient;
 import com.example.projet_front.utils.BottomNavBar;
+import com.example.projet_front.utils.TokenManager;
 
 public class ProfileFragment extends Fragment {
 
-    // UI Components
+    // UI
     private TextView tvUserName, tvUserEmail;
-    private View statCardMemos, statCardReservations, statCardPoints;
     private Button btnModifyProfile, btnLogout;
-    private View cardMesContenus, cardParametres, cardSupport;
 
-    // User data
-    private UserRegisterRequest currentUser;
+    private View statCardMemos, statCardReservations, statCardPoints;
+    private View cardMesContenus, cardParametres, cardSupport;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -55,6 +57,7 @@ public class ProfileFragment extends Fragment {
     private void initViews(View view) {
         tvUserName = view.findViewById(R.id.tvUserName);
         tvUserEmail = view.findViewById(R.id.tvUserEmail);
+
         btnModifyProfile = view.findViewById(R.id.btnModifyProfile);
         btnLogout = view.findViewById(R.id.btn_logout);
 
@@ -70,17 +73,15 @@ public class ProfileFragment extends Fragment {
     /* -------------------- USER DATA -------------------- */
 
     private void loadUserData() {
-        currentUser = new UserRegisterRequest();
-        currentUser.name = "Aicha Benali";
-        currentUser.email = "aicha.benali@gmail.com";
-        updateUI();
-    }
+        TokenManager tokenManager = new TokenManager(requireContext());
 
-    private void updateUI() {
-        if (currentUser != null) {
-            tvUserName.setText(currentUser.name);
-            tvUserEmail.setText(currentUser.email);
+        if (!tokenManager.isLoggedIn()) {
+            redirectToLogin();
+            return;
         }
+
+        tvUserName.setText(tokenManager.getUserName());
+        tvUserEmail.setText(tokenManager.getUserEmail());
     }
 
     /* -------------------- STATS -------------------- */
@@ -132,21 +133,21 @@ public class ProfileFragment extends Fragment {
     /* -------------------- MENU CARDS -------------------- */
 
     private void setupMenuCards() {
-        updateStatistics(cardMesContenus,
+        setupMenu(cardMesContenus,
                 "Mes Contenus",
                 R.drawable.ic_event_note,
                 "Mes Mémos",
                 R.drawable.ic_reservation,
                 "Mes Réservations");
 
-        updateStatistics(cardParametres,
+        setupMenu(cardParametres,
                 "Paramètres",
                 R.drawable.ic_user,
                 "Informations personnelles",
                 R.drawable.ic_notif,
                 "Notifications");
 
-        updateStatistics(cardSupport,
+        setupMenu(cardSupport,
                 "Support",
                 R.drawable.ic_help,
                 "Centre d'aide",
@@ -154,7 +155,7 @@ public class ProfileFragment extends Fragment {
                 "Contacter le support");
     }
 
-    private void updateStatistics(
+    private void setupMenu(
             View card,
             String title,
             int icon1,
@@ -174,17 +175,29 @@ public class ProfileFragment extends Fragment {
         tvTitle.setText(title);
         ivIcon1.setImageResource(icon1);
         tvLabel1.setText(label1);
+
         ivIcon2.setImageResource(icon2);
         tvLabel2.setText(label2);
 
-        llItem1.setOnClickListener(v -> handleMenuItemClick(title, label1));
-        llItem2.setOnClickListener(v -> handleMenuItemClick(title, label2));
-    }
+        llItem1.setOnClickListener(v -> {
+            if ("Centre d'aide".equals(label1)) {
+                requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new HelpCenterFragment())
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                Toast.makeText(requireContext(), label1, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-    private void handleMenuItemClick(String section, String item) {
-        Toast.makeText(requireContext(),
-                section + " - " + item,
-                Toast.LENGTH_SHORT).show();
+
+        llItem2.setOnClickListener(v ->
+                Toast.makeText(requireContext(),
+                        label2,
+                        Toast.LENGTH_SHORT).show()
+        );
     }
 
     /* -------------------- LISTENERS -------------------- */
@@ -192,16 +205,22 @@ public class ProfileFragment extends Fragment {
     private void setupListeners(View view) {
 
         btnModifyProfile.setOnClickListener(v ->
-                Toast.makeText(requireContext(),
-                        "Modifier le profil",
-                        Toast.LENGTH_SHORT).show()
+                startActivity(new Intent(requireContext(), EditProfileActivity.class))
         );
 
-        btnLogout.setOnClickListener(v ->
-                Toast.makeText(requireContext(),
-                        "Déconnexion...",
-                        Toast.LENGTH_SHORT).show()
-        );
+        btnLogout.setOnClickListener(v -> {
+            TokenManager tokenManager = new TokenManager(requireContext());
+            tokenManager.clearAll();
+
+            // Réinitialiser ApiClient pour supprimer le token des headers
+            ApiClient.resetClient();
+
+            Toast.makeText(requireContext(),
+                    "Déconnexion réussie",
+                    Toast.LENGTH_SHORT).show();
+
+            redirectToLogin();
+        });
 
         ImageView btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v ->
@@ -211,28 +230,22 @@ public class ProfileFragment extends Fragment {
         );
     }
 
-    /* -------------------- EXTERNAL UPDATES -------------------- */
+    /* -------------------- REDIRECTION -------------------- */
 
-    public void updateUserData(UserRegisterRequest updatedUser) {
-        currentUser = updatedUser;
-        updateUI();
+    private void redirectToLogin() {
+        Intent intent = new Intent(requireContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
-    public void updateStatisticsCounts(int memos, int reservations, int points) {
-        ((TextView) statCardMemos.findViewById(R.id.tvStatCount))
-                .setText(String.valueOf(memos));
+    /* -------------------- BOTTOM NAV -------------------- */
 
-        ((TextView) statCardReservations.findViewById(R.id.tvStatCount))
-                .setText(String.valueOf(reservations));
-
-        ((TextView) statCardPoints.findViewById(R.id.tvStatCount))
-                .setText(String.valueOf(points));
-    }
-
-    // ================= BOTTOM NAV REFRESH =================
     @Override
     public void onResume() {
         super.onResume();
+
+        // Recharger les données utilisateur au retour
+        loadUserData();
 
         if (getActivity() != null) {
             BottomNavBar.setupBottomNav(getActivity());

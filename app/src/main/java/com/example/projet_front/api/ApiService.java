@@ -7,6 +7,11 @@ import com.example.projet_front.models.UserLoginRequest;
 import com.example.projet_front.models.UserRegisterRequest;
 import com.example.projet_front.models.UserResponse;
 import com.example.projet_front.models.PlaceResponse;
+import com.example.projet_front.models.LoginResponse;
+import com.example.projet_front.models.UserUpdateRequest;
+import retrofit2.http.PUT;
+import retrofit2.http.Header;
+
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,7 +28,17 @@ public interface ApiService {
     Call<UserResponse> register(@Body UserRegisterRequest request);
 
     @POST("api/users/login")
-    Call<UserResponse> login(@Body UserLoginRequest request);
+    Call<LoginResponse> login(@Body UserLoginRequest request);
+
+    @GET("api/users/profile")
+    Call<UserResponse> getProfile();
+
+    @PUT("api/users/profile")
+    Call<UserResponse> updateProfile(@Body UserUpdateRequest request);
+
+
+    @POST("api/users/logout")
+    Call<Void> logout();
 
     // ================= PLACES =================
 

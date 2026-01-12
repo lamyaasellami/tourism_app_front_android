@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import com.example.projet_front.R;
 import com.example.projet_front.utils.BottomNavBar;
 import com.example.projet_front.fragments.HomeFragment;
+import com.example.projet_front.utils.TokenManager;
+import com.example.projet_front.api.ApiClient;  // ← AJOUTER CET IMPORT
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +18,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // ---------------- INIT API CLIENT ----------------
+        TokenManager tokenManager = new TokenManager(this);
+        ApiClient.init(tokenManager);
+        // -------------------------------------------------
 
         BottomNavBar.setupBottomNav(this);
 

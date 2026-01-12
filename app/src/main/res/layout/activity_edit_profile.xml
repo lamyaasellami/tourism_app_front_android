@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F7F3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Titre -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mon Profil"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#0B5E4B"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"/>
+
+        <!-- Sous-titre -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modifier mes informations"
+            android:textSize="18sp"
+            android:textColor="#1C1C1C"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Carte -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Nom -->
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:hint="Nom"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:inputType="textPersonName"/>
+
+            <!-- Email -->
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:hint="Email"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:inputType="textEmailAddress"/>
+
+            <!-- Pays -->
+            <EditText
+                android:id="@+id/etCountry"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:hint="Pays"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:inputType="text"/>
+
+            <!-- Langue -->
+            <EditText
+                android:id="@+id/etLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:hint="Langue"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:inputType="text"/>
+
+            <!-- Devise -->
+            <EditText
+                android:id="@+id/etCurrency"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:hint="Devise"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:inputType="text"/>
+
+            <!-- Mot de passe actuel -->
+            <EditText
+                android:id="@+id/etCurrentPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:hint="Mot de passe actuel"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:inputType="textPassword"/>
+
+            <!-- Nouveau mot de passe -->
+            <EditText
+                android:id="@+id/etNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:hint="Nouveau mot de passe"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:inputType="textPassword"/>
+
+            <!-- Bouton sauvegarde -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_button"
+                android:backgroundTint="@null"
+                android:stateListAnimator="@null"
+                android:text="Enregistrer les modifications"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

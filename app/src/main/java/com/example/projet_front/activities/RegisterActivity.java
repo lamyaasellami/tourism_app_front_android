@@ -41,15 +41,18 @@ public class RegisterActivity extends AppCompatActivity {
                 registerUser();
             }
         });
-
     }
 
     private boolean validateInputs() {
-
+        String name = nameEt.getText().toString().trim();
         String email = emailEt.getText().toString().trim();
         String password = passwordEt.getText().toString().trim();
 
-        // Email
+        if (name.isEmpty()) {
+            nameEt.setError("Nom requis");
+            return false;
+        }
+
         if (email.isEmpty()) {
             emailEt.setError("Email requis");
             return false;
@@ -60,7 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
-        // Password
         if (password.isEmpty()) {
             passwordEt.setError("Mot de passe requis");
             return false;
@@ -79,15 +81,14 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void registerUser() {
         UserRegisterRequest request = new UserRegisterRequest();
-        request.name = nameEt.getText().toString();
-        request.email = emailEt.getText().toString();
-        request.password = passwordEt.getText().toString();
-        request.country = countryEt.getText().toString();
-        request.language = languageEt.getText().toString();
-        request.currency = currencyEt.getText().toString();
+        request.name = nameEt.getText().toString().trim();
+        request.email = emailEt.getText().toString().trim();
+        request.password = passwordEt.getText().toString().trim();
+        request.country = countryEt.getText().toString().trim();
+        request.language = languageEt.getText().toString().trim();
+        request.currency = currencyEt.getText().toString().trim();
 
         ApiService api = ApiClient.getClient().create(ApiService.class);
         api.register(request).enqueue(new Callback<UserResponse>() {
@@ -98,13 +99,13 @@ public class RegisterActivity extends AppCompatActivity {
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Erreur inscription", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Erreur inscription: Email déjà utilisé", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Erreur serveur", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Erreur serveur: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
