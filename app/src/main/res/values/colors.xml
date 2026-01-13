@@ -7,6 +7,7 @@
     <color name="gris_texte_fonce">#757575</color>
     <color name="blanc">#FFFFFF</color>
     <color name="noir">#1C1C1C</color>
+    <color name="red">#C0392B</color>
 
     <color name="categorie_bg">#C59F5A</color>
     <color name="categorie_icon">#FFFFFF</color>

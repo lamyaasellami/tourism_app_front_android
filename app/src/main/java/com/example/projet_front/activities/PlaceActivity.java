@@ -50,7 +50,7 @@ public class PlaceActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         placeList = new ArrayList<>();
-        adapter = new PopularPlaceAdapter(placeList);
+        adapter = new PopularPlaceAdapter(this, placeList);
         recyclerView.setAdapter(adapter);
 
         // 🔍 SEARCH

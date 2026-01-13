@@ -1,5 +1,7 @@
 package com.example.projet_front.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PlaceResponse {
 
     private Integer placeId;
@@ -15,7 +17,11 @@ public class PlaceResponse {
     private String websiteUrl;
     private String description;
 
-    // getters & setters
+    // ❤️ FAVORITE
+    @SerializedName("favorite") // adapte si le backend envoie autre chose
+    private boolean favorite;
+
+    // ================= GETTERS & SETTERS =================
 
     public Integer getPlaceId() {
         return placeId;
@@ -31,14 +37,6 @@ public class PlaceResponse {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getPlaceType() {
@@ -111,5 +109,22 @@ public class PlaceResponse {
 
     public void setWebsiteUrl(String websiteUrl) {
         this.websiteUrl = websiteUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // ❤️ FAVORITE GET / SET
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }
