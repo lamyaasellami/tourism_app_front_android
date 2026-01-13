@@ -2,6 +2,7 @@ package com.example.projet_front.api;
 
 import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.models.EventProvider;
+import com.example.projet_front.models.FavoritePlaceResponse;
 import com.example.projet_front.models.FavoriteRequest;
 import com.example.projet_front.models.TransportProvider;
 import com.example.projet_front.models.UserLoginRequest;
@@ -110,7 +111,12 @@ public interface ApiService {
     @HTTP(method = "DELETE", path = "favorites", hasBody = true)
     Call<Void> removeFavorite(@Body FavoriteRequest request);
 
-    @GET("favorites/user/{userId}")
-    Call<List<Integer>> getFavorites(@Path("userId") int userId);
+    /*@GET("favorites/user/{userId}")
+    Call<List<Integer>> getFavorites(@Path("userId") int userId);*/
+
+    @GET("api/favorites/user/{userId}")
+    Call<List<FavoritePlaceResponse>> getFavoritesByUser(
+            @Path("userId") int userId
+    );
 
 }

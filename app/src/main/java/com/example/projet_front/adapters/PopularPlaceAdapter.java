@@ -33,7 +33,7 @@ public class PopularPlaceAdapter
     private Context context;
     private List<PlaceResponse> places;
     private ApiService api;
-    private int currentUserId = 1;
+    private int currentUserId = 3;
     private OnPlaceClickListener listener;
 
     // ================= INTERFACE =================
@@ -89,6 +89,10 @@ public class PopularPlaceAdapter
 
         // ❤️ État initial
         updateHeartIcon(holder.favorite, place.isFavorite());
+        // Force favorite state in Favorites screen
+        /*place.setFavorite(true);
+        updateHeartIcon(holder.favorite, true);
+*/
 
         // 🔍 CLIC ITEM
         holder.itemView.setOnClickListener(v -> {
