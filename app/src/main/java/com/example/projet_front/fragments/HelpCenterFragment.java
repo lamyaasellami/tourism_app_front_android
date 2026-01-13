@@ -55,6 +55,7 @@ public class HelpCenterFragment extends Fragment {
         intent.setData(Uri.parse("tel:" + number));
         startActivity(intent);
     }
+
     private void initBackButton(View view) {
         ImageView btnBack = view.findViewById(R.id.btn_back);
 

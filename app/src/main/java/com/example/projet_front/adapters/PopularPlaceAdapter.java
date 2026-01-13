@@ -95,6 +95,11 @@ public class PopularPlaceAdapter
 */
 
         // 🔍 CLIC ITEM
+        // Image (plus tard avec Glide/Picasso)
+//        holder.image.setImageResource(R.drawable.koutoubia_placeholder);
+        int imageRes = getImageByType(place.getPlaceType());
+        holder.image.setImageResource(imageRes);
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onPlaceClick(place);
@@ -185,4 +190,43 @@ public class PopularPlaceAdapter
             rating = itemView.findViewById(R.id.popular_rating);
         }
     }
+    private int getImageByType(String type) {
+        if (type == null) return R.drawable.koutoubia_placeholder;
+
+        switch (type.toLowerCase()) {
+            case "monument":
+                return R.drawable.ic_monument;
+
+            case "parc":
+                return R.drawable.ic_park;
+
+            case "marché":
+            case "marche":
+                return R.drawable.ic_market;
+
+            case "divertissement":
+                return R.drawable.ic_entertainment;
+
+            case "musée":
+            case "musee":
+                return R.drawable.ic_museum;
+
+            case "jardin":
+                return R.drawable.ic_garden;
+
+            case "restauration":
+                return R.drawable.ic_restaurant2;
+
+            case "mosquée":
+            case "mosquee":
+                return R.drawable.koutoubia_placeholder;
+
+            case "popular":
+                return R.drawable.ic_popular;
+
+            default:
+                return R.drawable.koutoubia_placeholder;
+        }
+    }
+
 }
