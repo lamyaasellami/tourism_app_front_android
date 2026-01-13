@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.FavoritesFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header Section -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                android:clipToOutline="true"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:background="#10614f"
+                    android:orientation="vertical"
+                    android:padding="1dp">
+
+                    <!-- page header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="#10614f"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginTop="30dp">
+
+                        <ImageView
+                            android:id="@+id/btnBack"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="Back"
+                            android:src="@drawable/ic_back"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/favoris"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Favoris"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/btnSettings"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="Settings"
+                            android:src="@drawable/ic_notification"
+                            app:tint="@android:color/white" />
+
+                    </RelativeLayout>
+
+                    <!-- SEARCH BAR -->
+                    <EditText
+                        android:id="@+id/search_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="16dp"
+                        android:hint="Rechercher places, événements..."
+                        android:background="@drawable/bg_input"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:drawableEnd="@drawable/ic_filtre"
+                        android:drawablePadding="8dp"
+                        android:textColorHint="@color/gris_texte"
+                        android:inputType="text"
+                        android:imeOptions="actionSearch"/>
+                </LinearLayout>
+
+                <!-- Gradient overlay for better text visibility -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/gradient_overlay" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Horizontal Scrollable Filter Buttons -->
+
+            <!-- RecyclerView pour afficher les favoris -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:scrollbars="none">
+
+                <include layout="@layout/favorites_chips" />
+
+            </HorizontalScrollView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerFavorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="80dp"
+                tools:listitem="@layout/popular_item" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
