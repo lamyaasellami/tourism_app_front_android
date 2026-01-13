@@ -94,4 +94,8 @@ public interface ApiService {
     // 🔹 GET ALL events
     @GET("events")
     Call<List<EventProvider>> getAllEvents();
+
+    @POST("chat")
+    Call<ChatResponse> sendMessage(@Body ChatRequest request);
+
 }

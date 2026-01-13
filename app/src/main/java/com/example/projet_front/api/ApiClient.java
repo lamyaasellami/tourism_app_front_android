@@ -58,4 +58,7 @@ public class ApiClient {
         client = null;
         tokenManager = null;
     }
+    public static ApiService getApiService() {
+        return getClient().create(ApiService.class);
+    }
 }

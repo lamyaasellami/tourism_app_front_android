@@ -2,6 +2,7 @@ package com.example.projet_front.fragments;
 
 import static android.app.PendingIntent.getActivity;
 
+import com.example.projet_front.activities.ChatActivity;
 import com.example.projet_front.activities.EventsActivity;
 import com.example.projet_front.activities.PlaceActivity;
 import com.example.projet_front.activities.PlaceDetailActivity;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.view.View;
 import android.widget.Toast;
@@ -130,6 +132,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         LinearLayout categoryEvents = catEventsInclude.findViewById(R.id.category_events);
         LinearLayout categoryPlaces = catEventsInclude.findViewById(R.id.category_places);
         LinearLayout categoryRestau = catEventsInclude.findViewById(R.id.category_restaurants);
+
+        ImageView chatIcon = root.findViewById(R.id.chaticon);
+        chatIcon.setOnClickListener(view -> {
+            if (getActivity() == null) return;
+
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            startActivity(intent);
+        });
 
 
 

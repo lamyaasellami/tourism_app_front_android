@@ -66,6 +66,15 @@
             android:paddingEnd="14dp"
             android:textColor="@color/noir"
             android:textColorHint="@color/gris_texte"/>
+
+        <ImageView
+            android:id="@+id/chaticon"
+            android:layout_width="55dp"
+            android:layout_height="56dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/chatbot" />
     </RelativeLayout>
 
 
