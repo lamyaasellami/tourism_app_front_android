@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                 registerUser();
             }
         });
+        //registerBtn.setOnClickListener(v -> registerUser());
     }
 
     private boolean validateInputs() {
