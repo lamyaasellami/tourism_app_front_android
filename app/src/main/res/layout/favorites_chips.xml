@@ -21,19 +21,8 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tous"
+            android:text="All"
             android:checked="true"
-            app:chipBackgroundColor="@color/chip_background_color"
-            app:chipStrokeWidth="0dp"
-            android:textColor="@color/chip_text_color" />
-
-        <!-- Fav Places -->
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipFavPlace"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lieux"
             app:chipBackgroundColor="@color/chip_background_color"
             app:chipStrokeWidth="0dp"
             android:textColor="@color/chip_text_color" />
@@ -44,11 +33,32 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Événements"
+            android:text="Events"
             app:chipBackgroundColor="@color/chip_background_color"
             app:chipStrokeWidth="0dp"
             android:textColor="@color/chip_text_color" />
 
+        <!-- Fav Places -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFavPlace"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Places"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
+
+        <!-- Fav Events -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFavTransport"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transports"
+            app:chipBackgroundColor="@color/chip_background_color"
+            app:chipStrokeWidth="0dp"
+            android:textColor="@color/chip_text_color" />
     </com.google.android.material.chip.ChipGroup>
 
 

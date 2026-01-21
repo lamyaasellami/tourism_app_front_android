@@ -60,7 +60,7 @@
 
         </LinearLayout>
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/popular_favorite"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -70,7 +70,29 @@
             android:focusableInTouchMode="true"
             android:src="@drawable/ic_heart_outline"
             app:tint="@color/gris_texte"
-            android:contentDescription="Ajouter aux favoris"/>
+            android:contentDescription="Ajouter aux favoris"/>-->
+        <!-- Favorite Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/favoriteContainer"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageContainer"
+            app:layout_constraintTop_toTopOf="@id/imageContainer">
+
+            <ImageView
+                android:id="@+id/popular_favorite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="Add to favorites"
+                android:src="@drawable/ic_favorite_border"
+                app:tint="#10614f" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
