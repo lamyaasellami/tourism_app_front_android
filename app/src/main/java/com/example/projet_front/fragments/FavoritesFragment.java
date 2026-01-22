@@ -16,11 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
+import com.example.projet_front.adapters.FavoriteAdapter;
 import com.example.projet_front.adapters.PopularPlaceAdapter;
 import com.example.projet_front.api.ApiClient;
 import com.example.projet_front.api.ApiService;
+import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.models.FavoritePlaceResponse;
+import com.example.projet_front.models.FavoriteProvider;
 import com.example.projet_front.models.PlaceResponse;
+import com.example.projet_front.models.TransportProvider;
 import com.example.projet_front.utils.BottomNavBar;
 
 import java.util.ArrayList;
@@ -33,7 +37,7 @@ import retrofit2.Response;
 public class FavoritesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private PopularPlaceAdapter adapter;
+    private FavoriteAdapter adapter;
     private ApiService api;
 
     @Override
@@ -56,11 +60,11 @@ public class FavoritesFragment extends Fragment {
 
     private void loadFavorites() {
 
-        api.getFavoritesByUser(3).enqueue(new Callback<List<FavoritePlaceResponse>>() {
+        api.getFavoritesByUser(3).enqueue(new Callback<List<FavoriteProvider>>() {
             @Override
             public void onResponse(
-                    Call<List<FavoritePlaceResponse>> call,
-                    Response<List<FavoritePlaceResponse>> response
+                    Call<List<FavoriteProvider>> call,
+                    Response<List<FavoriteProvider>> response
             ) {
 
                 if (!response.isSuccessful() || response.body() == null) {
@@ -68,35 +72,41 @@ public class FavoritesFragment extends Fragment {
                     return;
                 }
 
-                List<FavoritePlaceResponse> favorites = response.body();
+                List<FavoriteProvider> favorites = response.body();
                 Log.d("FAVORITES", "Count = " + favorites.size());
 
-                // 🔁 MAP FavoritePlaceResponse -> PlaceResponse
+                // 🔁 MAP FavoriteProvider -> PlaceResponse
                 List<PlaceResponse> places = new ArrayList<>();
+                List<AccommodationProvider> accs = new ArrayList<>();
 
-                for (FavoritePlaceResponse fav : favorites) {
+                for (FavoriteProvider fav : favorites) {
+                    if ("PLACE".equals(fav.getEntityType())) {
+                        PlaceResponse place = fav.getPlace();
+                        Log.d("FAVVA", "Place: " + place.getName());
 
-                    PlaceResponse place = new PlaceResponse();
-                    place.setPlaceId(fav.getPlaceId());
-                    place.setName(fav.getName());
-                    place.setPlaceType(fav.getPlaceType());
-                    place.setDescription(fav.getDescription());
-                    place.setMinPrice(fav.getMinPrice());
-                    place.setMaxPrice(fav.getMaxPrice());
-
-                    // VERY IMPORTANT
-                    place.setFavorite(true);
-
-                    places.add(place);
+                        /*place.setName(fav.getPlace().getName());
+                        place.setDescription(fav.getPlace().getDescription());*/
+                        place.setFavorite(true);
+                        places.add(place);
+                    } else if ("ACCOMMODATION".equals(fav.getEntityType())) {
+                        AccommodationProvider acc = fav.getAccommodation();
+                        acc.setFavorite(true);
+                        accs.add(acc);
+                    } /*else if ("TRANSPORT".equals(fav.getEntityType())) {
+                        TransportProvider transport = fav.getTransport();
+                    }*/
                 }
 
                 // 🧠 Adapter setup
-                adapter = new PopularPlaceAdapter(requireContext(), places);
+                /*adapter = new PopularPlaceAdapter(requireContext(), places);
+                recyclerView.setAdapter(adapter);*/
+                adapter = new FavoriteAdapter(requireContext(), favorites);
                 recyclerView.setAdapter(adapter);
             }
 
+
             @Override
-            public void onFailure(Call<List<FavoritePlaceResponse>> call, Throwable t) {
+            public void onFailure(Call<List<FavoriteProvider>> call, Throwable t) {
                 Log.e("FAVORITES", "API error", t);
             }
         });

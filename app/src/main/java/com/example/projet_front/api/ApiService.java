@@ -3,8 +3,8 @@ package com.example.projet_front.api;
 import com.example.projet_front.models.AccommodationProvider;
 import com.example.projet_front.models.EventProvider;
 import com.example.projet_front.models.FavoritePlaceResponse;
+import com.example.projet_front.models.FavoriteProvider;
 import com.example.projet_front.models.FavoriteRequest;
-import com.example.projet_front.models.FavoriteResponse;
 import com.example.projet_front.models.TransportProvider;
 import com.example.projet_front.models.UserLoginRequest;
 import com.example.projet_front.models.UserRegisterRequest;
@@ -115,9 +115,13 @@ public interface ApiService {
     /*@GET("favorites/user/{userId}")
     Call<List<Integer>> getFavorites(@Path("userId") int userId);*/
 
+    /*@GET("api/favorites/user/{userId}")
+    Call<List<FavoritePlaceResponse>> getFavoritesByUser(
+            @Path("userId") int userId
+    );*/
+
     @GET("api/favorites/{userId}")
-    Call<List<FavoriteResponse>> getFavoritesByUser(
+    Call<List<FavoriteProvider>> getFavoritesByUser(
             @Path("userId") long userId
     );
-
 }

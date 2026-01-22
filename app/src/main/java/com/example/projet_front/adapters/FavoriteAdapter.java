@@ -1,102 +1,111 @@
 package com.example.projet_front.adapters;
 
+import static java.lang.Character.toUpperCase;
+
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_front.R;
-import com.example.projet_front.models.AccommodationProvider;
-import com.example.projet_front.models.FavoriteResponse;
-import com.example.projet_front.models.PlaceResponse;
-import com.example.projet_front.models.TransportProvider;
+import com.example.projet_front.models.FavoriteProvider;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavViewHolder> {
 
+    private final List<FavoriteProvider> favorites;
     private final Context context;
-    private final List<FavoriteResponse> favorites;
-
-    public FavoriteAdapter(Context context, List<FavoriteResponse> favorites) {
+    public FavoriteAdapter(Context context, List<FavoriteProvider> favorites) {
         this.context = context;
         this.favorites = favorites;
     }
 
-    @NonNull
     @Override
-    public FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.popular_item, parent, false);
-        return new FavoriteViewHolder(view);
+        return new FavViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
-        FavoriteResponse fav = favorites.get(position);
+    public void onBindViewHolder(FavViewHolder holder, int position) {
+        FavoriteProvider favorite = favorites.get(position);
 
-        if ("PLACE".equals(fav.getEntityType())) {
-            PlaceResponse place = fav.getPlace();
-            holder.title.setText(place.getName());
-            holder.details.setText(place.getDescription() != null ? place.getDescription() : place.getPlaceType());
-            holder.rating.setText("★ " + (place.getMinPrice() != null ? place.getMinPrice() : ""));
+        if ("PLACE".equals(favorite.getEntityType())) {
+            // Handle Place entity
+            // You can access favorite.getPlace() here
+            holder.title.setText(favorite.getPlace().getName());
 
-            // Placeholder image (replace with Glide/Picasso if you have URLs)
-            holder.image.setImageResource(R.drawable.koutoubia_placeholder);
-        } else if ("ACCOMMODATION".equals(fav.getEntityType())) {
-            AccommodationProvider acc = fav.getAccommodation();
-            holder.title.setText(acc.getName());
-            holder.details.setText(acc.getType() + " • " + acc.getDescription());
-            holder.rating.setText(acc.getWebsiteUrl() != null ? acc.getWebsiteUrl() : "");
+            //holder.tvType.setText(favorite.getPlace().getPlaceType().toUpperCase());
 
-            holder.image.setImageResource(R.drawable.koutoubia_placeholder);
-            acc.setFavorite(true);
-        } else if ("TRANSPORT".equals(fav.getEntityType())) {
-            TransportProvider transport = fav.getTransport();
-            holder.title.setText(transport.getType());
-            holder.details.setText("Transport service");
-            holder.rating.setText("");
-            holder.image.setImageResource(R.drawable.koutoubia_placeholder);
+            holder.details.setText(favorite.getPlace().getDescription());
+
+            //holder.tvFavDate.setText(favorite.getPlace().getOpeningHours());
+
+            //holder.tvFavCity.setText("City not available");
+
+            holder.rating.setText("★ 4.8");
+
+            // ❤️ État initial
+            updateHeartIcon(holder.favorite, favorite.getPlace().isFavorite());
         }
-        /*switch (fav.getEntityType()) {
-            case "PLACE" -> {
-                PlaceResponse place = fav.getPlace();
-                holder.title.setText(place.getName());
-                holder.details.setText(place.getDescription() != null ? place.getDescription() : place.getPlaceType());
-                holder.rating.setText("★ " + (place.getMinPrice() != null ? place.getMinPrice() : ""));
+        // Additional entity types (e.g., ACCOMMODATION, TRANSPORT) can be handled here
+        else if ("ACCOMMODATION".equals(favorite.getEntityType())) {
+            holder.title.setText(favorite.getAccommodation().getName());
 
-                // Placeholder image (replace with Glide/Picasso if you have URLs)
-                holder.image.setImageResource(R.drawable.koutoubia_placeholder);
-            }
-            case "ACCOMMODATION" -> {
-                AccommodationProvider acc = fav.getAccommodation();
-                holder.title.setText(acc.getName());
-                holder.details.setText(acc.getType() + " • " + acc.getDescription());
-                holder.rating.setText(acc.getWebsiteUrl() != null ? acc.getWebsiteUrl() : "");
+            //holder.tvType.setText(favorite.getAccommodation().getType().toUpperCase());
 
-                holder.image.setImageResource(R.drawable.koutoubia_placeholder);
-            }
-            case "TRANSPORT" -> {
-                TransportProvider transport = fav.getTransport();
-                holder.title.setText(transport.getType());
-                holder.details.setText("Transport service");
-                holder.rating.setText("");
-                holder.image.setImageResource(R.drawable.koutoubia_placeholder);
-            }
-        }*/
+            holder.details.setText(favorite.getAccommodation().getDescription());
 
-        // Favorite icon toggle
-        holder.favoriteIcon.setImageResource(R.drawable.ic_favorite_border);
-        holder.favoriteIcon.setOnClickListener(v -> {
-            // TODO: handle favorite toggle (API call or local update)
-            Toast.makeText(context, "Clicked favorite for " + fav.getEntityType(), Toast.LENGTH_SHORT).show();
-        });
+            //holder.tvFavCity.setText("City not available");
+
+            holder.rating.setText("★ 4.8");
+
+            // ❤️ État initial
+            updateHeartIcon(holder.favorite, true);
+
+            // Example with placeholder:
+            String imageName = favorite.getAccommodation().getLogoUrl();
+
+            if (imageName != null && !imageName.isEmpty()) {
+
+                int imageResId = context.getResources().getIdentifier(
+                        imageName,
+                        "drawable",
+                        context.getPackageName()
+                );
+
+                if (imageResId != 0) {
+                    holder.image.setImageResource(imageResId);
+                } else {
+                    holder.image.setImageResource(R.drawable.afcon2025);
+                }
+
+            } else {
+                holder.image.setImageResource(R.drawable.afcon2025);
+            }
+
+        }
+
+    }
+    private void updateHeartIcon(ImageView heart, boolean isFavorite) {
+        if (isFavorite) {
+            heart.setImageResource(R.drawable.ic_favorite_filled);
+            heart.setColorFilter(
+                    ContextCompat.getColor(context, R.color.red));
+        } else {
+            heart.setImageResource(R.drawable.ic_heart_outline);
+            heart.setColorFilter(
+                    ContextCompat.getColor(context, R.color.gris_texte));
+        }
     }
 
     @Override
@@ -104,18 +113,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return favorites.size();
     }
 
-    static class FavoriteViewHolder extends RecyclerView.ViewHolder {
-        ImageView image, favoriteIcon;
+    public static class FavViewHolder extends RecyclerView.ViewHolder {
+        ImageView image, favorite;
         TextView title, details, rating;
 
-        public FavoriteViewHolder(@NonNull View itemView) {
+        FavViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.popular_image);
+            favorite = itemView.findViewById(R.id.popular_favorite);
             title = itemView.findViewById(R.id.popular_title);
             details = itemView.findViewById(R.id.popular_details);
             rating = itemView.findViewById(R.id.popular_rating);
-            favoriteIcon = itemView.findViewById(R.id.popular_favorite);
         }
     }
 }
-
