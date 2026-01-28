@@ -124,4 +124,7 @@ public interface ApiService {
     Call<List<FavoriteProvider>> getFavoritesByUser(
             @Path("userId") long userId
     );
+
+    @POST("api/favorites")
+    Call<FavoriteProvider> addToFavorites(@Body FavoriteRequest request);
 }

@@ -111,7 +111,7 @@ public class PopularPlaceAdapter
         });
 
         // ❤️ CLIC FAVORI
-        holder.favorite.setOnClickListener(v -> {
+        /*holder.favorite.setOnClickListener(v -> {
             FavoriteRequest request =
                     new FavoriteRequest(currentUserId, place.getPlaceId());
 
@@ -154,7 +154,7 @@ public class PopularPlaceAdapter
                     }
                 });
             }
-        });
+        });*/
     }
 
     // ================= HEART =================
