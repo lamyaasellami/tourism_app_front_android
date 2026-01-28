@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -154,6 +155,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                     .addToBackStack(null)
                     .commit();
         });*/
+        TextView voirTousEvents = root.findViewById(R.id.tv_voir_tout);
+        voirTousEvents.setOnClickListener(view -> {
+            if (getActivity() == null) return;
+
+            Intent intent = new Intent(getActivity(), PlaceActivity.class);
+            startActivity(intent);
+        });
 
         categoryEvents.setOnClickListener(view -> {
             if (getActivity() == null) return;

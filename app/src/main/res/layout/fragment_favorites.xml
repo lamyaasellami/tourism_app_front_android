@@ -29,7 +29,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="110dp"
                     android:background="#10614f"
                     android:orientation="vertical"
                     android:padding="1dp">
@@ -75,7 +75,7 @@
                     </RelativeLayout>
 
                     <!-- SEARCH BAR -->
-                    <EditText
+                    <!--<EditText
                         android:id="@+id/search_bar"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -90,7 +90,7 @@
                         android:drawablePadding="8dp"
                         android:textColorHint="@color/gris_texte"
                         android:inputType="text"
-                        android:imeOptions="actionSearch"/>
+                        android:imeOptions="actionSearch"/>-->
                 </LinearLayout>
 
                 <!-- Gradient overlay for better text visibility -->
