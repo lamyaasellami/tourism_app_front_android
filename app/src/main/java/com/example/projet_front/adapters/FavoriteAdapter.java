@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.projet_front.R;
 import com.example.projet_front.models.FavoriteProvider;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -56,6 +58,19 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavVie
 
             // ❤️ État initial
             updateHeartIcon(holder.favorite, favorite.getPlace().isFavorite());
+
+            // Handle favorite button
+            holder.favorite.setTag(favorite.getPlace().isFavorite() ? "filled" : "border");
+            updateHeartIcon(holder.favorite, favorite.getPlace().isFavorite());
+
+            holder.cVfavoriteContainer.setOnClickListener(v -> {
+                favorite.getPlace().setFavorite(!favorite.getPlace().isFavorite());
+                updateHeartIcon(holder.favorite, favorite.getPlace().isFavorite());
+
+                String message = favorite.getPlace().isFavorite() ?
+                        "Ajouté aux favoris" : "Retiré des favoris";
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            });
         }
         // Additional entity types (e.g., ACCOMMODATION, TRANSPORT) can be handled here
         else if ("ACCOMMODATION".equals(favorite.getEntityType())) {
@@ -93,6 +108,19 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavVie
                 holder.image.setImageResource(R.drawable.afcon2025);
             }
 
+            // Handle favorite button
+            holder.favorite.setTag(favorite.getAccommodation().isFavorite() ? "filled" : "border");
+            updateHeartIcon(holder.favorite, favorite.getAccommodation().isFavorite());
+
+            holder.cVfavoriteContainer.setOnClickListener(v -> {
+                favorite.getAccommodation().setFavorite(!favorite.getAccommodation().isFavorite());
+                updateHeartIcon(holder.favorite, favorite.getAccommodation().isFavorite());
+
+                String message = favorite.getAccommodation().isFavorite() ?
+                        "Ajouté aux favoris" : "Retiré des favoris";
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            });
+
         }
 
     }
@@ -116,11 +144,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavVie
     public static class FavViewHolder extends RecyclerView.ViewHolder {
         ImageView image, favorite;
         TextView title, details, rating;
+        MaterialCardView cVfavoriteContainer;
 
         FavViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.popular_image);
             favorite = itemView.findViewById(R.id.popular_favorite);
+            cVfavoriteContainer = itemView.findViewById(R.id.favoriteContainer);
             title = itemView.findViewById(R.id.popular_title);
             details = itemView.findViewById(R.id.popular_details);
             rating = itemView.findViewById(R.id.popular_rating);
